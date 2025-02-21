@@ -1,35 +1,41 @@
-@section('content')
-<div class="container mx-auto p-4">
-    <h1 class="text-2xl font-bold mb-4">Lista de Alunos</h1>
+@extends('layouts.app')
 
-    <table class="w-full border-collapse border border-gray-300">
-        <thead>
-            <tr class="bg-gray-200">
-                <th class="border p-2">ID</th>
-                <th class="border p-2">Nome Completo</th>
-                <th class="border p-2">CPF</th>
-                <th class="border p-2">Idade</th>
-                <th class="border p-2">Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($alunos as $aluno)
-                <tr class="border">
-                    <td class="border p-2">{{ $aluno->id }}</td>
-                    <td class="border p-2">{{ $aluno->nome_completo }}</td>
-                    <td class="border p-2">{{ $aluno->cpf }}</td>
-                    <td class="border p-2">{{ $aluno->idade }}</td>
-                    <td class="border p-2">
-                        <a href="{{ route('alunos.listar', $aluno->id) }}" class="text-blue-500">Ver</a>
-                        <a href="#" class="text-yellow-500 ml-2">Editar</a>
-                        <form action="#" method="POST" class="inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-500 ml-2">Excluir</button>
-                        </form>
+@section('title', 'Lista de Alunos')
+
+@section('content')
+
+<body class="bg-gray-100">
+    <h1 class="text-3xl font-semibold text-gray-800 mb-6 text-center">Lista de Alunos</h1>
+
+    <div class="overflow-x-auto bg-white shadow-md rounded-lg p-4 mx-4">
+        <table class="w-full table-auto border-collapse">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border-b px-4 py-2 text-center text-sm font-medium text-gray-700">ID</th>
+                    <th class="border-b px-4 py-2 text-center text-sm font-medium text-gray-700">Nome Completo</th>
+                    <th class="border-b px-4 py-2 text-center text-sm font-medium text-gray-700">Responsável</th>
+                    <th class="border-b px-4 py-2 text-center text-sm font-medium text-gray-700">CPF</th>
+                    <th class="border-b px-4 py-2 text-center text-sm font-medium text-gray-700">Idade</th>
+                    <th class="border-b px-4 py-2 text-center text-sm font-medium text-gray-700">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($alunos as $aluno)
+                <tr class="hover:bg-gray-50">
+                    <td class="border-b px-4 py-2 text-sm text-gray-700 text-center">{{ $aluno->id }}</td>
+                    <td class="border-b px-4 py-2 text-sm text-gray-700 text-center">{{ $aluno->nome_completo }}</td>
+                    <td class="border-b px-4 py-2 text-sm text-gray-700 text-center">{{ $aluno->nome_do_responsavel_principal }}</td>
+                    <td class="border-b px-4 py-2 text-sm text-gray-700 text-center">{{ $aluno->cpf }}</td>
+                    <td class="border-b px-4 py-2 text-sm text-gray-700 text-center">{{ $aluno->idade }}</td>
+                    <td class="border-b px-4 py-2 text-sm text-center">
+                        <a href="{{ route('alunos.listar') }}" class="btn bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700">Ver</a>
+                        <a href="#" class="btn bg-yellow-500 text-white px-4 py-1 rounded ml-4 hover:bg-yellow-600">Editar</a>
+                        <a href="#" class="btn bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded ml-4 hover:bg-green-600 hover:bg-green-700">Matricular</a>
                     </td>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</body>
+@endsection

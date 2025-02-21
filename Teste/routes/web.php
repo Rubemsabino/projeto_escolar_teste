@@ -10,3 +10,7 @@ Route::get('/', function () {
 Route::prefix('alunos')->name('alunos.')->group(function () {
     Route::get('listar', [AlunoController::class, 'index'])->name('listar'); 
 });
+
+Route::get('/home', function () {
+    return view('home');
+})->name('home');
