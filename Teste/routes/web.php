@@ -21,7 +21,7 @@ Route::prefix('alunos')->name('alunos.')->group(function () {
 
 Route::prefix('professores')->name('professores.')->group(function () {
     Route::get('listar', [ProfessorController::class, 'index'])->name('listar'); // Listar professores
-    Route::get('criar', [ProfessorController::class, 'create'])->name('criar'); // Formulário de criação
+    Route::get('criar', [ProfessorController::class, 'create'])->name('criar'); // Formulário de criaçãoj
     Route::post('criar', [ProfessorController::class, 'store'])->name('salvar'); // Processar criação (POST)
     Route::get('buscar', [ProfessorController::class, 'busca'])->name('buscar'); // Buscar professores
 
