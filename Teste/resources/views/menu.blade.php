@@ -8,40 +8,37 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100">
-    <!-- Navbar -->
-    <nav class="bg-blue-600 text-white p-4 shadow-md">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="#" class="text-xl font-bold">Meu Sistema</a>
-            <ul class="hidden md:flex space-x-6">
-                <li><a href="#" class="hover:text-gray-300">Início</a></li>
-                <li><a href="#" class="hover:text-gray-300">Alunos</a></li>
-                <li><a href="#" class="hover:text-gray-300">Sobre</a></li>
-                <li><a href="#" class="hover:text-gray-300">Contato</a></li>
-            </ul>
-            <button class="md:hidden text-white focus:outline-none" id="menu-toggle">
-                ☰
-            </button>
-        </div>
-    </nav>
+<body class="bg-gray-300 flex">
 
-    <!-- Menu Mobile -->
-    <div class="hidden md:hidden bg-blue-700 text-white p-4" id="mobile-menu">
-        <a href="#" class="block py-2">Início</a>
-        <a href="#" class="block py-2">Alunos</a>
-        <a href="#" class="block py-2">Sobre</a>
-        <a href="#" class="block py-2">Contato</a>
+    <!-- Sidebar -->
+    <div id="sidebar"
+        class="bg-blue-600 text-white w-64 min-h-screen p-4 space-y-4 transition-transform transform -translate-x-64 md:translate-x-0 fixed md:relative">
+        <button id="menu-toggle" class="md:hidden text-white text-2xl focus:outline-none">
+            ☰
+        </button>
+        <h2 class="text-xl font-bold">Meu Sistema</h2>
+        <nav class="space-y-2 mt-4">
+            <a href="#" class="block py-2 px-3 rounded hover:bg-blue-500">Início</a>
+            <a href="#" class="block py-2 px-3 rounded hover:bg-blue-500">Alunos</a>
+            <a href="#" class="block py-2 px-3 rounded hover:bg-blue-500">Sobre</a>
+            <a href="#" class="block py-2 px-3 rounded hover:bg-blue-500">Contato</a>
+        </nav>
     </div>
 
-    <div class="container mx-auto p-8 bg-white shadow-xl rounded-lg mt-6">
+    <!-- Conteúdo Principal -->
+    <div class="flex-1 p-8">
         <h1 class="text-3xl font-semibold text-gray-800 mb-6">Lista de Alunos</h1>
+        <div class="bg-white shadow-xl rounded-lg p-6">
+            <p>Conteúdo aqui...</p>
+        </div>
     </div>
 
     <script>
-        document.getElementById("menu-toggle").addEventListener("click", function () {
-            document.getElementById("mobile-menu").classList.toggle("hidden");
-        });
+    document.getElementById("menu-toggle").addEventListener("click", function() {
+        document.getElementById("sidebar").classList.toggle("-translate-x-64");
+    });
     </script>
+
 </body>
 
 </html>

@@ -10,54 +10,50 @@ class CreateAlunosTable extends Migration
     {
         Schema::create('alunos', function (Blueprint $table) {
             $table->id();
-
-            // Informações Pessoais do Aluno
             $table->string('foto')->nullable();
-            $table->string('nome_completo');
-            $table->date('data_de_nascimento');
-            $table->integer('idade');
-            $table->enum('sexo', ['masculino', 'feminino', 'outro']);
+            $table->string('nome');
+            $table->date('data_de_nascimento')->nullable();
+            $table->integer('idade')->nullable();
+            $table->enum('sexo', ['masculino', 'feminino', 'outros']);
             $table->string('cpf')->nullable();
             $table->string('rg')->nullable();
-            $table->string('certidao_de_nascimento');
+            $table->string('pai')->nullable();
+            $table->string('mae')->nullable();
+            $table->string('certidao')->nullable();
+            $table->string('naturalidade')->nullable();
+            $table->string('nacionalidade')->nullable();
             $table->string('celular')->nullable();
-            $table->string('cep');
-            $table->string('endereco_rua');
-            $table->string('endereco_numero');
-            $table->string('endereco_bairro');
-            $table->string('endereco_cidade');
-            $table->string('endereco_estado');
+            $table->string('cep')->nullable();
+            $table->string('rua')->nullable();
+            $table->string('numero')->nullable();
+            $table->string('bairro')->nullable();
+            $table->string('cidade')->nullable();
+            $table->string('estado')->nullable();
 
             // Informações dos Responsáveis
             $table->string('foto_responsavel')->nullable();
-            $table->string('nome_do_responsavel_principal');
-            $table->date('data_de_nascimento_responsavel');
-            $table->integer('idade_responsavel');
-            $table->enum('sexo_responsavel', ['masculino', 'feminino', 'outro']);
+            $table->enum('parentesco', ['pai', 'mae', 'irmao', 'irma', 'tio', 'tia', 'primo', 'prima', 'avo', 'ava'])->nullable();
+            $table->string('nome_completo_responsavel')->nullable();
+            $table->date('data_de_nascimento_responsavel')->nullable();
+            $table->integer('idade_responsavel')->nullable();
+            $table->enum('sexo_responsavel', ['masculino', 'feminino', 'outros']);
             $table->string('cpf_responsavel')->nullable();
             $table->string('rg_responsavel')->nullable();
+            $table->string('naturalidade_responsavel')->nullable();
+            $table->string('nacionalidade_responsavel')->nullable();
             $table->string('celular_responsavel')->nullable();
-            $table->string('parentesco');
-            $table->string('cep_responsavel');
-            $table->string('endereco_rua_responsavel');
-            $table->string('endereco_numero_responsavel');
-            $table->string('endereco_bairro_responsavel');
-            $table->string('endereco_cidade_responsavel');
-            $table->string('endereco_estado_responsavel');
+            $table->string('cep_responsavel')->nullable();
+            $table->string('rua_responsavel')->nullable();
+            $table->string('numero_responsavel')->nullable();
+            $table->string('bairro_responsavel')->nullable();
+            $table->string('cidade_responsavel')->nullable();
+            $table->string('estado_responsavel')->nullable();
 
             // Informações Acadêmicas
-            $table->year('ano_letivo');
+            $table->string('ano_letivo', 4)->nullable();
             $table->enum('turno', ['matutino', 'vespertino', 'noturno']);
-            $table->enum('status_da_matricula', ['ativa', 'inativa', 'trancada']);
-            $table->date('data_de_ingresso');
-            $table->time('hora_de_ingresso');
-            $table->enum('parte_do_dia', ['manhã', 'tarde', 'noite']);
-
-            // Informações Extras
-            $table->string('necessidades_especiais')->nullable();
-            $table->string('tipo_sanguineo')->nullable();
-            $table->enum('fator_rh', ['positivo', 'negativo'])->nullable();
-            $table->text('observacoes')->nullable();
+            $table->enum('status_da_matricula', ['ativo', 'inativo', 'transferido']);
+            $table->date('data_de_ingresso')->nullable();
 
             $table->timestamps();
         });

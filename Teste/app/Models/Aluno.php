@@ -9,55 +9,56 @@ class Aluno extends Model
 {
     use HasFactory;
 
-    protected $table = 'alunos';  // Nome da tabela
-
-    // Defina os campos que são preenchíveis
+    // Defina os campos que podem ser preenchidos em massa (mass assignment)
     protected $fillable = [
         'foto',
-        'nome_completo',
+
+        'nome',
         'data_de_nascimento',
         'idade',
         'sexo',
         'cpf',
+
         'rg',
-        'certidao_de_nascimento',
+        'pai',
+        'mae',
+        'certidao',
+
+        'naturalidade',
+        'nacionalidade',
         'celular',
+
         'cep',
-        'endereco_rua',
-        'endereco_numero',
-        'endereco_bairro',
-        'endereco_cidade',
-        'endereco_estado',
+        'rua',
+        'numero',
+        'bairro',
+        'cidade',
+        'estado',
+
         'foto_responsavel',
-        'nome_do_responsavel_principal',
+        
+        'parentesco',
+        'nome_completo_responsavel',
         'data_de_nascimento_responsavel',
         'idade_responsavel',
         'sexo_responsavel',
+        
         'cpf_responsavel',
         'rg_responsavel',
+        'naturalidade_responsavel',
+        'nacionalidade_responsavel',
         'celular_responsavel',
-        'parentesco',
+
         'cep_responsavel',
-        'endereco_rua_responsavel',
-        'endereco_numero_responsavel',
-        'endereco_bairro_responsavel',
-        'endereco_cidade_responsavel',
-        'endereco_estado_responsavel',
+        'rua_responsavel',
+        'numero_responsavel',
+        'bairro_responsavel',
+        'cidade_responsavel',
+        'estado_responsavel',
+        
         'ano_letivo',
         'turno',
         'status_da_matricula',
         'data_de_ingresso',
-        'hora_de_ingresso',
-        'parte_do_dia',
-        'necessidades_especiais',
-        'tipo_sanguineo',
-        'fator_rh',
-        'observacoes'
     ];
-
-    // Defina os tipos dos campos
-    protected $casts = [
-        'data_de_nascimento' => 'date',
-    ];
-    
 }
