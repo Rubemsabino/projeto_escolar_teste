@@ -40,6 +40,9 @@
             <tr class="bg-gray-100">
                 <th class="border-b px-4 py-2 text-center text-sm font-medium text-gray-700">Matrícula</th>
                 <th class="border-b px-4 py-2 text-center text-sm font-medium text-gray-700">Nome Completo</th>
+                <th class="border-b px-4 py-2 text-center text-sm font-medium text-gray-700">Foto</th>
+                <th class="border-b px-4 py-2 text-center text-sm font-medium text-gray-700">Formação</th>
+                <th class="border-b px-4 py-2 text-center text-sm font-medium text-gray-700">Trabalha no Turno</th>
                 <th class="border-b px-4 py-2 text-center text-sm font-medium text-gray-700">Ações</th>
             </tr>
         </thead>
@@ -49,6 +52,17 @@
             <tr class="hover:bg-gray-100">
                 <td class="border-b px-4 py-2 text-sm text-gray-700 text-center">{{ $professor->id }}</td>
                 <td class="border-b px-4 py-2 text-sm text-gray-700 text-center">{{ $professor->nome}}</td>
+                <td class="border-b px-4 py-2 text-sm text-gray-700 text-center"><!-- Exemplo na View de Exibição -->
+                    @if($professor->foto == 'sem_foto')
+                    <p>SEM FOTO</p>
+                    @else
+                    <div class="flex justify-center">
+                        <img src="{{ asset('storage/' . $professor->foto) }}" alt="Foto do Aluno"
+                            class="w-16 h-16 object-cover rounded-full mt-2">
+                    </div>
+                    @endif</td>
+                <td class="border-b px-4 py-2 text-sm text-gray-700 text-center">{{ $professor->formacao_graduacao}}</td>
+                <td class="border-b px-4 py-2 text-sm text-gray-700 text-center">{{ $professor->turno_que_trabalha}}</td>
 
                 <td class="border-b px-4 py-2 text-sm text-center">
                     <div class="flex items-center justify-center">

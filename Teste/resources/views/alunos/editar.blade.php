@@ -42,7 +42,7 @@
 
                         <!-- Input para selecionar nova foto (alinhado à direita da foto) -->
                         <input type="file" id="foto" name="foto"
-                        class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-blue-100">
+                            class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-blue-100">
                     </div>
                 </div>
 
@@ -200,12 +200,22 @@
 
         <fieldset class="border border-gray-400 p-4 rounded-lg">
             <legend class="text-gray-600 font-semibold px-2">Informações dos Responsáveis</legend>
-            <div class="mb-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                    <label for="foto_responsavel" class="block text-gray-500">Foto</label>
+            <div>
+                <label for="foto" class="block text-gray-500">Foto</label>
+
+                <!-- Contêiner flex para alinhar a foto e o input com mais espaço entre eles -->
+                <div class="flex items-center space-x-8 mb-4">
+                    <!-- Exibe a foto atual se existir -->
+                    @if($aluno->foto_responsavel == 'sem_foto')
+                    <p>SEM FOTO</p>
+                    @else
+                    <img src="{{ asset('storage/' . $aluno->foto_responsavel) }}" alt="Foto do Aluno"
+                        class="w-16 h-16 object-cover rounded-full mt-2">
+                    @endif
+
+                    <!-- Input para selecionar nova foto (alinhado à direita da foto) -->
                     <input type="file" id="foto_responsavel" name="foto_responsavel"
-                        class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-blue-100"
-                        value="{{($aluno->foto_responsavel)}}">
+                        class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-blue-100">
                 </div>
             </div>
 
@@ -407,7 +417,7 @@
                 <div>
                     <label for="data_de_ingresso" class="block text-gray-500">Data de Ingresso</label>
                     <input type="date" id="data_de_ingresso" name="data_de_ingresso" maxlength="4"
-                    class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-blue-100"
+                        class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-blue-100"
                         value="{{ $aluno->data_de_ingresso ? \Carbon\Carbon::parse($aluno->data_de_ingresso)->format('d/m/Y') : '' }}"
                         readonly>
                 </div>
@@ -420,7 +430,14 @@
         </fieldset> -->
 
         <div class="flex flex-col sm:flex-row justify-center gap-2">
-            <button type="submit" class="bg-transparent text-blue-500 border border-blue-500 px-6 py-3 rounded-lg mt-4 hover:bg-blue-500 hover:text-white hover:font-bold transition">Editar</button>
+            <button type="submit"
+                class="bg-transparent text-blue-500 border border-blue-500 px-6 py-3 rounded-lg mt-4 hover:bg-blue-500 hover:text-white hover:font-bold transition">Editar</button>
+
+            <a href="{{ route('alunos.ver', $aluno->id)}}"
+                class="bg-transparent text-purple-500 border border-purple-500 px-6 py-3 rounded-lg mt-4 hover:bg-purple-500 hover:text-white hover:font-bold transition"
+                title="Adicionar Novo Aluno">
+                Voltar
+            </a>
         </div>
 
 

@@ -56,8 +56,10 @@
                     @if($aluno->foto == 'sem_foto')
                     <p>SEM FOTO</p>
                     @else
-                    <img src="{{ asset('storage/' . $aluno->foto) }}" alt="Foto do Aluno"
-                        class="w-16 h-16 object-cover rounded-full mt-2">
+                    <div class="flex justify-center">
+                        <img src="{{ asset('storage/' . $aluno->foto) }}" alt="Foto do Aluno"
+                            class="w-16 h-16 object-cover rounded-full mt-2">
+                    </div>
                     @endif
 
                 </td>

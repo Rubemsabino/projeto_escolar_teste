@@ -83,7 +83,17 @@ class AlunoController extends Controller
         'data_de_ingresso' => 'nullable|date',
     ]);
 
-    // Criação do novo aluno no banco de dados
+    // 📷 Upload da foto do aluno (se enviada)
+    if ($request->hasFile('foto')) {
+        $validated['foto'] = $request->file('foto')->store('fotos_alunos', 'public');
+    }
+
+    // 📷 Upload da foto do responsável (se enviada)
+    if ($request->hasFile('foto_responsavel')) {
+        $validated['foto_responsavel'] = $request->file('foto_responsavel')->store('fotos_responsaveis', 'public');
+    }
+
+    // Criar o aluno no banco de dados
     Aluno::create($validated);
 
     return redirect()->route('alunos.listar')->with('success', 'Aluno criado com sucesso!');
@@ -164,12 +174,32 @@ class AlunoController extends Controller
         'data_de_ingresso' => 'nullable|date',
     ]);
 
-    // Atualizar os dados do aluno
-$aluno->update($validated);
-// dd("Método update foi chamado", $request->all());
+    // 📷 Atualizar a foto do aluno
+    if ($request->hasFile('foto')) {
+        // Apagar a foto antiga se existir
+        if ($aluno->foto) {
+            Storage::delete($aluno->foto);
+        }
 
-return redirect()->route('alunos.listar')->with('success', 'Aluno atualizado com sucesso!');
+        // Salvar a nova foto
+        $validated['foto'] = $request->file('foto')->store('fotos_alunos', 'public');
+    }
 
+    // 📷 Atualizar a foto do responsável
+    if ($request->hasFile('foto_responsavel')) {
+        // Apagar a foto antiga se existir
+        if ($aluno->foto_responsavel) {
+            Storage::delete($aluno->foto_responsavel);
+        }
+
+        // Salvar a nova foto
+        $validated['foto_responsavel'] = $request->file('foto_responsavel')->store('fotos_responsaveis', 'public');
+    }
+
+    // Atualizar os dados do aluno no banco
+    $aluno->update($validated);
+
+    return redirect()->route('alunos.listar')->with('success', 'Aluno atualizado com sucesso!');
 }
 
     /**

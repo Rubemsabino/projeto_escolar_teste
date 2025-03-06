@@ -131,8 +131,6 @@
 
             </div>
 
-
-
             <div class="mb-4 grid grid-cols-1 md:grid-cols-6 gap-4">
                 <div>
                     <label for="cep" class="block text-gray-500">CEP</label>
@@ -187,13 +185,15 @@
 
         <fieldset class="border border-gray-400 p-4 rounded-lg">
             <legend class="text-gray-600 font-semibold px-2">Informações dos Responsáveis</legend>
-            <div class="mb-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                    <label for="foto_responsavel" class="block text-gray-500">Foto</label>
-                    <input type="text" id="foto_responsavel" name="foto_responsavel"
-                        class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-yellow-100"
-                        value="{{($aluno->foto_responsavel)}}" readonly>
-                </div>
+            <div class="mt-4">
+                <label for="foto" class="block text-gray-500">Foto do Resposável</label>
+                <!-- Exemplo na View de Exibição -->
+                @if($aluno->foto_responsavel == 'sem_foto')
+                <p>SEM FOTO</p>
+                @else
+                <img src="{{ asset('storage/' . $aluno->foto_responsavel) }}" alt="Foto do Aluno"
+                    class="w-16 h-16 object-cover rounded-full mt-2">
+                @endif
             </div>
 
             <div class="mb-4 grid grid-cols-1 md:grid-cols-6 gap-4">
@@ -363,11 +363,20 @@
 
 
         <div class="flex flex-col sm:flex-row justify-center gap-2">
-            <a href="{{ route('alunos.editar', $aluno->id)}}" class="bg-transparent text-yellow-500 border border-yellow-500 px-6 py-3 rounded-lg mt-4 hover:bg-yellow-500 hover:text-white hover:font-bold transition" title="Adicionar Novo Aluno">
+            <a href="{{ route('alunos.editar', $aluno->id)}}"
+                class="bg-transparent text-yellow-500 border border-yellow-500 px-6 py-3 rounded-lg mt-4 hover:bg-yellow-500 hover:text-white hover:font-bold transition"
+                title="Adicionar Novo Aluno">
                 Editar Campos
             </a>
-        </div>
 
+            <div class="flex flex-col sm:flex-row justify-center gap-2">
+            <a href="{{ route('alunos.listar', $aluno->id)}}"
+                class="bg-transparent text-purple-500 border border-purple-500 px-6 py-3 rounded-lg mt-4 hover:bg-purple-500 hover:text-white hover:font-bold transition"
+                title="Adicionar Novo Aluno">
+                Voltar
+            </a>
+        </div>
+        </div>
 
     </form>
 

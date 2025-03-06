@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\professor;
+use App\Models\Professor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProfessorController extends Controller
 {
@@ -12,10 +13,8 @@ class ProfessorController extends Controller
      */
     public function index()
     {
-        {
-            $professores = Professor::all();
-            return view('professores.listar', compact('professores'));
-        }
+        $professores = Professor::all();
+        return view('professores.listar', compact('professores'));
     }
 
     /**
@@ -23,7 +22,7 @@ class ProfessorController extends Controller
      */
     public function create()
     {
-        return view('professores.criar'); // Certifique-se de que a view existe
+        return view('professores.criar');
     }
 
     /**
@@ -31,29 +30,50 @@ class ProfessorController extends Controller
      */
     public function store(Request $request)
     {
-        // Validação
         $validated = $request->validate([
-            'nome' => 'required|string|max:255', // Altere conforme os campos necessários
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'nome' => 'required|string|max:255',
+            'data_de_nascimento' => 'nullable|date',
+            'idade' => 'nullable|integer',
+            'sexo' => 'nullable|string',
+            'cpf' => 'required|string|max:14',
+            'rg' => 'nullable|string|max:20',
+            'naturalidade' => 'nullable|string|max:255',
+            'nacionalidade' => 'nullable|string|max:255',
+            'celular' => 'nullable|string|max:16',
+            'cep' => 'nullable|string|max:10',
+            'rua' => 'nullable|string|max:255',
+            'numero' => 'nullable|string|max:10',
+            'bairro' => 'nullable|string|max:255',
+            'cidade' => 'nullable|string|max:255',
+            'estado' => 'nullable|string|max:255',
+            'formacao_graduacao' => 'nullable|string|max:255',
+            'turno_que_trabalha' => 'nullable|string|max:255',
+            'data_de_admissao' => 'nullable|date',
+            'vinculo_empregaticio' => 'nullable|string|max:255',
         ]);
 
-        // Criar o professor
-        $professor = Professor::create($validated);
+        // 📷 Upload da foto (se enviada)
+        if ($request->hasFile('foto')) {
+            $validated['foto'] = $request->file('foto')->store('fotos_professores', 'public');
+        }
 
-        // Redirecionar com sucesso
+        // Criar o professor no banco de dados
+        Professor::create($validated);
+
         return redirect()->route('professores.listar')->with('success', 'Professor criado com sucesso!');
     }
 
     /**
      * Display the specified resource.
      */
-    // Exibir dados do professor
     public function show($id)
     {
         // Encontrar o professor pelo ID
         $professor = Professor::findOrFail($id);
 
         // Retornar a view com os dados do professor
-        return view('professores.editar', compact('professor'));
+        return view('professores.ver', compact('professor'));
     }
 
     /**
@@ -63,7 +83,7 @@ class ProfessorController extends Controller
     {
         // Encontrar o professor pelo ID
         $professor = Professor::findOrFail($id);
-    
+
         // Retornar a view com os dados do professor
         return view('professores.editar', compact('professor'));
     }
@@ -72,41 +92,57 @@ class ProfessorController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Professor $professor)
-{
-    // Validação dos dados recebidos
-    $validated = $request->validate([
-        'nome' => 'required|string|max:255', // Adicione mais campos conforme necessário
-    ]);
+    {
+        // Validação dos dados recebidos
+        $validated = $request->validate([
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'nome' => 'nullable|string|max:255',
+            'data_de_nascimento' => 'nullable|date',
+            'idade' => 'nullable|integer',
+            'sexo' => 'nullable|string',
+            'cpf' => 'nullable|string|max:14',
+            'rg' => 'nullable|string|max:20',
+            'naturalidade' => 'nullable|string|max:255',
+            'nacionalidade_responsavel' => 'nullable|string|max:255',
+            'celular' => 'nullable|string|max:16',
+            'cep' => 'nullable|string|max:10',
+            'rua' => 'nullable|string|max:255',
+            'numero' => 'nullable|string|max:10',
+            'bairro' => 'nullable|string|max:255',
+            'cidade' => 'nullable|string|max:255',
+            'estado' => 'nullable|string|max:255',
+            'formacao_graduacao' => 'nullable|string|max:255',
+            'turno_que_trabalha' => 'nullable|string|max:255',
+            'data_de_admissao' => 'nullable|date',
+            'vinculo_empregaticio' => 'nullable|string|max:255',
+        ]);
 
-    // Atualizando os dados do professor
-    $professor->update($validated);
+        // 📷 Atualizar a foto do professor
+        if ($request->hasFile('foto')) {
+            // Apagar a foto antiga se existir
+            if ($professor->foto && Storage::exists('public/' . $professor->foto)) {
+                Storage::delete('public/' . $professor->foto);
+            }
 
-    // Redirecionar com uma mensagem de sucesso
-    return redirect()->route('professores.listar')->with('success', 'Professor atualizado com sucesso!');
-}
+            // Salvar a nova foto
+            $validated['foto'] = $request->file('foto')->store('fotos_professores', 'public');
+        }
 
+        // Atualizando os dados do professor
+        $professor->update($validated);
+
+        // Redirecionar com uma mensagem de sucesso
+        return redirect()->route('professores.listar')->with('success', 'Professor atualizado com sucesso!');
+    }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(professor $professor)
+    public function destroy(Professor $professor)
     {
-        //
-    }
+        // Lógica para excluir o professor, se necessário
+        $professor->delete();
 
-    // * Buscar professores com base em critérios fornecidos pelo usuário.
-    public function busca(Request $request)
-    {
-        $query = Professor::query();
-
-        if ($request->has('search') && !empty($request->search)) {
-            $query->where(function ($q) use ($request) {
-                $q->where('id', $request->search)
-                  ->orWhere('nome', 'LIKE', '%' . $request->search . '%');
-            });
-        }
-
-        $professores = $query->get();
-        return view('professores.listar', compact('professores'));
+        return redirect()->route('professores.listar')->with('success', 'Professor excluído com sucesso!');
     }
 }
