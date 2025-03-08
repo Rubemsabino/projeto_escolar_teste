@@ -21,7 +21,7 @@ class AlunoFactory extends Factory
 'nome' => $this->faker->name(),
 'data_de_nascimento' => $this->faker->date(),
 'idade' => $this->faker->numberBetween(18, 60),
-'sexo' => $this->faker->randomElement(['masculino', 'feminino', 'outros']),
+'sexo' => $this->faker->randomElement(['Masculino', 'Feminino', 'Outros']),
 'cpf' => $this->faker->regexify('[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}'),
 'rg' => $this->faker->regexify('[0-9]{2}\.[0-9]{3}\.[0-9]{3}-[0-9]{1}'),
 'pai' => $this->faker->name(),
@@ -38,11 +38,11 @@ class AlunoFactory extends Factory
 'estado' => $this->faker->state(),
 
 'foto_responsavel' => $this->faker->imageUrl(),
-'parentesco' => $this->faker->randomElement(['mãe', 'pai', 'avô', 'avó', 'tio', 'tia']),
+'parentesco' => $this->faker->randomElement(['Mãe', 'Pai', 'Avô', 'Avó', 'Tio', 'Tia','Primo','Prima']),
 'nome_completo_responsavel' => $this->faker->name(),
 'data_de_nascimento_responsavel' => $this->faker->date(),
 'idade_responsavel' => $this->faker->numberBetween(30, 60),
-'sexo_responsavel' => $this->faker->randomElement(['masculino', 'feminino']),
+'sexo_responsavel' => $this->faker->randomElement(['Masculino', 'Feminino', 'Outros']),
 'cpf_responsavel' => $this->faker->regexify('[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}'),
 'rg_responsavel' => $this->faker->regexify('[0-9]{2}\.[0-9]{3}\.[0-9]{3}-[0-9]{1}'),
 'naturalidade_responsavel' => $this->faker->city(),
@@ -56,8 +56,8 @@ class AlunoFactory extends Factory
 'estado_responsavel' => $this->faker->state(),
 
 'ano_letivo' => $this->faker->year(),
-'turno' => $this->faker->randomElement(['matutino', 'vespertino', 'noturno']),
-'status_da_matricula' => $this->faker->randomElement(['ativo', 'inativo', 'transferido']),
+'turno' => $this->faker->randomElement(['Matutino', 'Vespertino', 'Noturno']),
+'status_da_matricula' => $this->faker->randomElement(['Ativo', 'Inativo', 'Transferido']),
 'data_de_ingresso' => $this->faker->date(),
 
         ];

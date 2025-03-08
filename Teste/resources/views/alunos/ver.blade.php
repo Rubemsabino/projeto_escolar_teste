@@ -11,7 +11,7 @@
             class="w-20 h-20 rounded-full border-4 border-gray-300">
     </div>
 
-    <h2 class="text-2xl font-bold mb-6 text-gray-500 text-center">VER ALUNO</h2>
+    <h2 class="text-2xl font-bold mb-6 text-black-500 text-center">VER ALUNO</h2>
 
     <form class="flex-1 overflow-y-auto p-4">
         <fieldset class="border border-gray-400 p-4 rounded-lg">

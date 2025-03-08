@@ -24,7 +24,7 @@ class ProfessorFactory extends Factory
 'nome' => $this->faker->name(),
 'data_de_nascimento' => $this->faker->date(),
 'idade' => $this->faker->numberBetween(18, 60),
-'sexo' => $this->faker->randomElement(['masculino', 'feminino', 'outros']),
+'sexo' => $this->faker->randomElement(['Masculino', 'Feminino', 'Outros']),
 'cpf' => $this->faker->regexify('[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}'),
 
 'rg' => $this->faker->regexify('[0-9]{2}\.[0-9]{3}\.[0-9]{3}-[0-9]{1}'),

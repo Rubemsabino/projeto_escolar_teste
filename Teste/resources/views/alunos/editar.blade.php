@@ -11,7 +11,7 @@
             class="w-20 h-20 rounded-full border-4 border-gray-300">
     </div>
 
-    <h2 class="text-2xl font-bold mb-6 text-gray-500 text-center">EDITAR ALUNO</h2>
+    <h2 class="text-2xl font-bold mb-6 text-black-500 text-center">EDITAR ALUNO</h2>
 
     <form method="POST" action="{{ route('alunos.atualizar', $aluno->id) }}" enctype="multipart/form-data">
         @csrf
