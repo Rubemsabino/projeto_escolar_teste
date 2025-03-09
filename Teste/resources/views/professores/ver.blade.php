@@ -186,18 +186,19 @@
             </div>
         </div>
 
-        <div class="flex flex-col sm:flex-row justify-center gap-2">
-            <a href="{{ route('professores.editar', $professor->id)}}"
-                class="bg-transparent text-yellow-500 border border-yellow-500 px-6 py-3 rounded-lg mt-4 hover:bg-yellow-500 hover:text-white hover:font-bold transition"
-                title="Adicionar Novo Aluno">
+        <div class="flex flex-col sm:flex-row justify-center gap-2 mt-4">
+            <a href="{{ route('professores.editar', $professor->id) }}"
+                class="inline-flex justify-center items-center bg-transparent text-yellow-500 border border-yellow-500 px-6 py-3 rounded-lg hover:bg-yellow-500 hover:text-white hover:font-bold transition"
+                title="Editar Campos">
                 Editar Campos
             </a>
-            <a href="{{ route('professores.listar', $professor->id)}}"
-                class="bg-transparent text-purple-500 border border-purple-500 px-6 py-3 rounded-lg mt-4 hover:bg-purple-500 hover:text-white hover:font-bold transition"
-                title="Adicionar Novo Aluno">
+            <a href="{{ route('professores.listar', $professor->id) }}"
+                class="inline-flex justify-center items-center bg-transparent text-purple-500 border border-purple-500 px-6 py-3 rounded-lg hover:bg-purple-500 hover:text-white hover:font-bold transition"
+                title="Voltar">
                 Voltar
             </a>
         </div>
+
     </fieldset>
 </form>
 

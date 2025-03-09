@@ -267,7 +267,7 @@ Swal.fire({
                         Noite</option>
                 </select>
             </div>
-            
+
 
             <div>
                 <label for="data_de_admissao" class="block text-gray-500">Data de Admissão</label>
@@ -307,15 +307,19 @@ Swal.fire({
         </div>
     </fieldset>
 
-    <div class="flex flex-col sm:flex-row justify-center gap-2">
-        <button type="submit"
-            class="bg-transparent text-blue-500 border border-blue-500 px-6 py-3 rounded-lg mt-4 hover:bg-blue-500 hover:text-white hover:font-bold transition">Editar</button>
-        <a href="{{ route('professores.ver', $professor->id)}}"
-            class="bg-transparent text-purple-500 border border-purple-500 px-6 py-3 rounded-lg mt-4 hover:bg-purple-500 hover:text-white hover:font-bold transition"
-            title="Adicionar Novo Aluno">
-            Voltar
-        </a>
-    </div>
+    <div class="flex flex-col sm:flex-row justify-center gap-2 mt-4">
+    <button type="submit"
+        class="inline-flex justify-center items-center bg-transparent text-blue-500 border border-blue-500 px-6 py-3 rounded-lg mt-4 hover:bg-blue-500 hover:text-white hover:font-bold transition">
+        Editar
+    </button>
+
+    <a href="{{ route('professores.listar', $professor->id) }}"
+        class="inline-flex justify-center items-center bg-transparent text-purple-500 border border-purple-500 px-6 py-3 rounded-lg mt-4 hover:bg-purple-500 hover:text-white hover:font-bold transition"
+        title="Voltar">
+        Voltar
+    </a>
+</div>
+
 
 </form>
 

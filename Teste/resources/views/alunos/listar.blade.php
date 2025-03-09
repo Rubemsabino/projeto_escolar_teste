@@ -37,10 +37,24 @@ Swal.fire({
     </div>
 
     <h2 class="text-2xl font-bold mb-6 text-black text-center">LISTA DE ALUNOS</h2>
-    <p>Total de alunos cadastrados: <strong>{{ \App\Models\Aluno::count() }}</strong></p>
-    <p>Total de alunos ativos: <strong>{{ \App\Models\Aluno::where('status_da_matricula', 'ativo')->count() }}</strong></p>
-    <p>Total de alunos inativos: <strong>{{ \App\Models\Aluno::where('status_da_matricula', 'inativo')->count() }}</strong></p>
-    <p>Total de alunos transferidos: <strong>{{ \App\Models\Aluno::where('status_da_matricula', 'transferido')->count() }}</strong></p>
+    <div class="flex items-center space-x-8 bg-white shadow-md rounded-lg p-4 mb-4">
+        <div class="flex-1">
+            <strong>Total de alunos cadastrados:</strong> {{ \App\Models\Aluno::count() }}
+        </div>
+        <div class="flex-1">
+            <strong>Total de alunos ativos:</strong>
+            {{ \App\Models\Aluno::where('status_da_matricula', 'ativo')->count() }}
+        </div>
+        <div class="flex-1">
+            <strong>Total de alunos inativos:</strong>
+            {{ \App\Models\Aluno::where('status_da_matricula', 'inativo')->count() }}
+        </div>
+        <div class="flex-1">
+            <strong>Total de alunos transferidos:</strong>
+            {{ \App\Models\Aluno::where('status_da_matricula', 'transferido')->count() }}
+        </div>
+    </div>
+
 
 
     <div class="flex justify-center">
@@ -82,16 +96,25 @@ Swal.fire({
                 @foreach($alunos as $aluno)
                 <tr class="hover:bg-gray-100">
                     <td class="border-b px-4 py-2 text-sm text-gray-700 text-center">{{ $aluno->id }}</td>
-                    <td class="border-b px-4 py-2 text-sm text-gray-700 text-center">
+                    <td class="border-b px-4 py-2 text-sm text-gray-700 text-center relative">
+                        @if($aluno->status_da_matricula == 'Inativo')
+                        <!-- "X" sobre a foto no centro -->
+                        <div
+                            class="absolute inset-0 flex items-center justify-center bg-red-500 bg-opacity-70 rounded-full z-10">
+                            <span class="text-white text-2xl font-bold">X</span>
+                        </div>
+                        @endif
+
                         @if($aluno->foto)
-                        <div class="flex justify-center">
+                        <div class="flex justify-center relative">
                             <img src="{{ asset('storage/' . $aluno->foto) }}" alt="Foto do Aluno: {{ $aluno->nome }}"
-                                class="w-16 h-16 object-cover rounded-full mt-2">
+                                class="w-16 h-16 object-cover rounded-full mt-2 z-0">
                         </div>
                         @else
                         <p>SEM FOTO</p>
                         @endif
                     </td>
+
                     <td class="border-b px-4 py-2 text-sm text-gray-700 text-center">{{ $aluno->nome }}</td>
                     <td class="border-b px-4 py-2 text-sm text-gray-700 text-center">{{ $aluno->status_da_matricula }}
                     </td>

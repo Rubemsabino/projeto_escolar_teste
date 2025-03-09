@@ -51,8 +51,8 @@ class CreateAlunosTable extends Migration
 
             // Informações Acadêmicas
             $table->string('ano_letivo', 4)->nullable();
-            $table->enum('turno', ['matutino', 'vespertino', 'noturno']);
-            $table->enum('status_da_matricula', ['ativo', 'inativo', 'transferido']);
+            $table->string('turno')->nullable();
+            $table->string('status_da_matricula')->nullable();
             $table->date('data_de_ingresso')->nullable();
 
             $table->timestamps();
@@ -64,3 +64,4 @@ class CreateAlunosTable extends Migration
         Schema::dropIfExists('alunos');
     }
 }
+

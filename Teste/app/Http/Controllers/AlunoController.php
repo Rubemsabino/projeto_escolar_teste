@@ -163,7 +163,7 @@ class AlunoController extends Controller
 
             'ano_letivo' => 'nullable|digits:4|integer|min:1900|max:2099',
             'turno' => 'nullable|in:Manhã,Tarde,Noite',
-            // 'status_da_matricula' => 'nullable|in:ativo,inativo,transferido',
+            'status_da_matricula' => 'nullable|in:Ativo,Inativo,Transferido',
             // 'data_de_ingresso' => 'nullable|date',
         ]);
 
