@@ -175,32 +175,48 @@ class AlunoController extends Controller
     ]);
 
     // 📷 Atualizar a foto do aluno
-    if ($request->hasFile('foto')) {
-        // Apagar a foto antiga se existir
-        if ($aluno->foto) {
-            Storage::delete($aluno->foto);
-        }
+if ($request->hasFile('foto')) {
+    // Apagar a foto antiga se existir
+    if ($aluno->foto) {
+        $fotoAntiga = $aluno->foto; // Caminho correto relativo ao disco "public"
 
-        // Salvar a nova foto
-        $validated['foto'] = $request->file('foto')->store('fotos_alunos', 'public');
+        // Verificar se o arquivo existe antes de tentar excluir
+        if (Storage::disk('public')->exists($fotoAntiga)) {
+            Storage::disk('public')->delete($fotoAntiga);
+        } else {
+            dd('Arquivo antigo não encontrado: ' . $fotoAntiga);
+        }
     }
 
-    // 📷 Atualizar a foto do responsável
+    // Salvar a nova foto
+    $validated['foto'] = $request->file('foto')->store('fotos_alunos', 'public');
+}
+
+
     if ($request->hasFile('foto_responsavel')) {
         // Apagar a foto antiga se existir
         if ($aluno->foto_responsavel) {
-            Storage::delete($aluno->foto_responsavel);
+            $fotoAntiga = $aluno->foto_responsavel; // Remova "public/"
+            
+            // Verificar se o arquivo realmente existe antes de tentar excluir
+            if (Storage::disk('public')->exists($fotoAntiga)) {
+                Storage::disk('public')->delete($fotoAntiga);
+            } else {
+                dd('Arquivo antigo não encontrado: ' . $fotoAntiga);
+            }
         }
-
+    
         // Salvar a nova foto
         $validated['foto_responsavel'] = $request->file('foto_responsavel')->store('fotos_responsaveis', 'public');
     }
+    
 
-    // Atualizar os dados do aluno no banco
-    $aluno->update($validated);
 
-    return redirect()->route('alunos.listar')->with('success', 'Aluno atualizado com sucesso!');
-}
+        // Atualizar os dados do aluno no banco
+        $aluno->update($validated);
+
+        return redirect()->route('alunos.listar')->with('success', 'Aluno atualizado com sucesso!');
+    }
 
     /**
      * Remover um aluno do banco de dados.
