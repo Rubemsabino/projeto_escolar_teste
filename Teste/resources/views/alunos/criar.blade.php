@@ -250,9 +250,10 @@
                 <select id="sexo_responsavel" name="sexo_responsavel"
                     class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-green-100">
                     <option value="" disabled selected>Selecione o sexo</option>
-                    <option value="masculino">Masculino</option>
-                    <option value="feminino">Feminino</option>
-                    <option value="outros">Outros</option>
+                    <option value=""></option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Feminino">Feminino</option>
+                    <option value="Outros">Outros</option>
                 </select>
             </div>
         </div>
@@ -392,7 +393,6 @@
     <div class="flex flex-col sm:flex-row justify-center gap-2">
         <button type="submit"
             class="bg-transparent text-green-500 border border-green-500 px-6 py-3 rounded-lg mt-4 hover:bg-green-500 hover:text-white hover:font-bold transition">Criar</button>
-        <!-- <button id="closeModalBtn" class="bg-red-500 text-white px-6 py-3 rounded-lg mt-4">Fechar</button> -->
     </div>
 </form>
 

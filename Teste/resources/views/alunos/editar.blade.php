@@ -4,6 +4,19 @@
 
 @section('content')
 
+@if(session('success'))
+<script>
+Swal.fire({
+    title: 'Sucesso!',
+    text: '{{ session('
+    success ') }}', // Corrigido aqui para passar o valor diretamente
+    icon: 'success',
+    confirmButtonText: 'OK'
+});
+</script>
+@endif
+
+
 <body class="bg-gray-300">
     <!-- Logo -->
     <div class="mb-6 flex justify-center">
@@ -77,11 +90,12 @@
                     <select id="sexo" name="sexo"
                         class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-blue-100">
                         <option value="" disabled>Selecione o sexo</option>
-                        <option value="masculino" @selected($aluno->sexo == 'masculino')>Masculino</option>
-                        <option value="feminino" @selected($aluno->sexo == 'feminino')>Feminino</option>
-                        <option value="outros" @selected($aluno->sexo == 'outros')>Outros</option>
+                        <option value="Masculino" @selected($aluno?->sexo == 'Masculino')>Masculino</option>
+                        <option value="Feminino" @selected($aluno?->sexo == 'Feminino')>Feminino</option>
+                        <option value="Outros" @selected($aluno?->sexo == 'Outros')>Outros</option>
                     </select>
                 </div>
+
 
 
                 <div>
@@ -390,10 +404,10 @@
                         class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-blue-100">
                         <option value="" disabled {{ empty($aluno->turno) ? 'selected' : '' }}>Selecione o turno
                         </option>
-                        <option value="Matutino" {{ $aluno->turno == 'Matutino' ? 'selected' : '' }}>Matutino</option>
-                        <option value="vespertino" {{ $aluno->turno == 'vespertino' ? 'selected' : '' }}>Vespetino
+                        <option value="Manhã" {{ $aluno->turno == 'Manhã' ? 'selected' : '' }}>Manhã</option>
+                        <option value="Tarde" {{ $aluno->turno == 'Tarde' ? 'selected' : '' }}>Tarde
                         </option>
-                        <option value="Nortuno" {{ $aluno->turno == 'Nortuno' ? 'selected' : '' }}>Nortuno</option>
+                        <option value="Noite" {{ $aluno->turno == 'Noite' ? 'selected' : '' }}>Noite</option>
                     </select>
                 </div>
 
@@ -404,12 +418,12 @@
                         class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-blue-100">
                         <option value="" disabled {{ empty($aluno->status_da_matricula) ? 'selected' : '' }}>Selecione o
                             status</option>
-                        <option value="ativo" {{ $aluno->status_da_matricula == 'ativo' ? 'selected' : '' }}>Ativo
+                        <option value="Ativo" {{ $aluno->status_da_matricula == 'Ativo' ? 'selected' : '' }}>Ativo
                         </option>
-                        <option value="inativo" {{ $aluno->status_da_matricula == 'inativo' ? 'selected' : '' }}>Inativo
+                        <option value="Inativo" {{ $aluno->status_da_matricula == 'Inativo' ? 'selected' : '' }}>Inativo
                         </option>
-                        <option value="transferido"
-                            {{ $aluno->status_da_matricula == 'transferido' ? 'selected' : '' }}>Transferido</option>
+                        <option value="Transferido"
+                            {{ $aluno->status_da_matricula == 'Transferido' ? 'selected' : '' }}>Transferido</option>
                     </select>
                 </div>
 
@@ -418,8 +432,9 @@
                     <label for="data_de_ingresso" class="block text-gray-500">Data de Ingresso</label>
                     <input type="date" id="data_de_ingresso" name="data_de_ingresso" maxlength="4"
                         class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-blue-100"
-                        value="{{ $aluno->data_de_ingresso ? \Carbon\Carbon::parse($aluno->data_de_ingresso)->format('d/m/Y') : '' }}"
+                        value="{{ $aluno->data_de_ingresso ? \Carbon\Carbon::parse($aluno->data_de_ingresso)->format('Y-m-d') : '' }}"
                         readonly>
+
                 </div>
 
         </fieldset>

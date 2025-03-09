@@ -256,17 +256,18 @@ Swal.fire({
                 <select id="turno_que_trabalha" name="turno_que_trabalha"
                     class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-gray-100">
                     <option value="" disabled selected>Selecione o turno</option>
-                    <option value="Matutino"
-                        {{ old('turno_que_trabalha', $professor->turno_que_trabalha ?? '') == 'Matutino' ? 'selected' : '' }}>
-                        Matutino</option>
-                    <option value="Vespertino"
-                        {{ old('turno_que_trabalha', $professor->turno_que_trabalha ?? '') == 'Vespertino' ? 'selected' : '' }}>
-                        Vespertino</option>
-                    <option value="Noturno"
-                        {{ old('turno_que_trabalha', $professor->turno_que_trabalha ?? '') == 'Noturno' ? 'selected' : '' }}>
-                        Noturno</option>
+                    <option value="Manhã"
+                        {{ old('turno_que_trabalha', $professor->turno_que_trabalha ?? '') == 'Manhã' ? 'selected' : '' }}>
+                        Manhã</option>
+                    <option value="Tarde"
+                        {{ old('turno_que_trabalha', $professor->turno_que_trabalha ?? '') == 'Tarde' ? 'selected' : '' }}>
+                        Tarde</option>
+                    <option value="Noite"
+                        {{ old('turno_que_trabalha', $professor->turno_que_trabalha ?? '') == 'Noite' ? 'selected' : '' }}>
+                        Noite</option>
                 </select>
             </div>
+            
 
             <div>
                 <label for="data_de_admissao" class="block text-gray-500">Data de Admissão</label>

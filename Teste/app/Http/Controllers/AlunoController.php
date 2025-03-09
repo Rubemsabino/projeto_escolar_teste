@@ -30,74 +30,66 @@ class AlunoController extends Controller
      * Armazenar um novo aluno no banco de dados.
      */
     public function store(Request $request)
-{
-    $validated = $request->validate([
-        'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    {
+        $validated = $request->validate([
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'nome' => 'required|string|max:255',
+            'data_de_nascimento' => 'nullable|date',
+            'idade' => 'nullable|integer',
+            'sexo' => 'nullable|string',
+            'cpf' => 'nullable|string|max:14',
+            'rg' => 'nullable|string|max:20',
+            'pai' => 'nullable|string|max:255',
+            'mae' => 'nullable|string|max:255',
+            'certidao' => 'nullable|string|max:255|unique:alunos,certidao',
+            'naturalidade' => 'nullable|string|max:255',
+            'nacionalidade' => 'nullable|string|max:255',
+            'celular' => 'nullable|string|max:16',
+            'cep' => 'nullable|string|max:10',
+            'rua' => 'nullable|string|max:255',
+            'numero' => 'nullable|string|max:10',
+            'bairro' => 'nullable|string|max:255',
+            'cidade' => 'nullable|string|max:255',
+            'estado' => 'nullable|string|max:255',
+            'foto_responsavel' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'parentesco' => 'nullable|string|max:255',
+            'nome_completo_responsavel' => 'nullable|string|max:255',
+            'data_de_nascimento_responsavel' => 'nullable|date',
+            'idade_responsavel' => 'nullable|integer',
+            'sexo' => 'nullable|string',
+            'cpf_responsavel' => 'nullable|string|max:14',
+            'rg' => 'nullable|string|max:20',
+            'naturalidade_responsavel' => 'nullable|string|max:255',
+            'nacionalidade_responsavel' => 'nullable|string|max:255',
+            'celular_responsavel' => 'nullable|string|max:16',
+            'cep_responsavel' => 'nullable|string|max:10',
+            'rua_responsavel' => 'nullable|string|max:255',
+            'numero_responsavel' => 'nullable|string|max:10',
+            'bairro_responsavel' => 'nullable|string|max:255',
+            'cidade_responsavel' => 'nullable|string|max:255',
+            'estado_responsavel' => 'nullable|string|max:255',
+            'ano_letivo' => 'nullable|digits:4',
+            'turno' => 'nullable|string|max:10',
+            'status_da_matricula' => 'nullable|in:ativo,inativo,transferido',
+            'data_de_ingresso' => 'nullable|date',
+        ]);
 
-        'nome' => 'required|string|max:255',
-        'data_de_nascimento' => 'nullable|date',
-        'idade' => 'nullable|integer',
-        'sexo' => 'nullable|string',
-        'cpf' => 'nullable|string|max:14',
-        
-        'rg' => 'nullable|string|max:20',
-        'pai' => 'nullable|string|max:255',
-        'mae' => 'nullable|string|max:255',
-        'certidao' => 'required|string|max:255|unique:alunos,certidao',
-        
-        'naturalidade' => 'nullable|string|max:255',
-        'nacionalidade' => 'nullable|string|max:255',
-        'celular' => 'nullable|string|max:16',
-        
-        'cep' => 'nullable|string|max:10',
-        'rua' => 'nullable|string|max:255',
-        'numero' => 'nullable|string|max:10',
-        'bairro' => 'nullable|string|max:255',
-        'cidade' => 'nullable|string|max:255',
-        'estado' => 'nullable|string|max:255',
-        
-        'foto_responsavel' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        
-        'parentesco' => 'nullable|string|max:255',
-        'nome_completo_responsavel' => 'nullable|string|max:255',
-        'data_de_nascimento_responsavel' => 'nullable|date',
-        'idade_responsavel' => 'nullable|integer',
-        'sexo' => 'nullable|string',
-        
-        'cpf_responsavel' => 'nullable|string|max:14',
-        'rg' => 'nullable|string|max:20',
-        'naturalidade_responsavel' => 'nullable|string|max:255',
-        'nacionalidade_responsavel' => 'nullable|string|max:255',
-        'celular_responsavel' => 'nullable|string|max:16',
-        
-        'cep_responsavel' => 'nullable|string|max:10',
-        'rua_responsavel' => 'nullable|string|max:255',
-        'numero_responsavel' => 'nullable|string|max:10',
-        'bairro_responsavel' => 'nullable|string|max:255',
-        'cidade_responsavel' => 'nullable|string|max:255',
-        'estado_responsavel' => 'nullable|string|max:255',
+        // 📷 Upload da foto do aluno (se enviada)
+        if ($request->hasFile('foto')) {
+            $validated['foto'] = $request->file('foto')->store('foto_alunos', 'public');
+        }
 
-        'ano_letivo' => 'nullable|digits:4',
-        'turno' => 'nullable|string|max:10',
-        'status_da_matricula' => 'nullable|in:ativo,inativo,transferido',
-        'data_de_ingresso' => 'nullable|date',
-    ]);
+        // 📷 Upload da foto do responsável (se enviada)
+        if ($request->hasFile('foto_responsavel')) {
+            $validated['foto_responsavel'] = $request->file('foto_responsavel')->store('foto_responsaveis', 'public');
+        }
 
-    // 📷 Upload da foto do aluno (se enviada)
-    if ($request->hasFile('foto')) {
-        $validated['foto'] = $request->file('foto')->store('fotos_alunos', 'public');
+        // Criar o aluno no banco de dados e recuperar o aluno criado
+        $aluno = Aluno::create($validated);
+
+        // Retornar uma mensagem de sucesso com o nome do aluno
+        return redirect()->route('alunos.listar')->with('success', 'Aluno(a): <strong>' . $aluno->nome . '</strong><br> Criado(a) com sucesso!');
     }
-
-    // 📷 Upload da foto do responsável (se enviada)
-    if ($request->hasFile('foto_responsavel')) {
-        $validated['foto_responsavel'] = $request->file('foto_responsavel')->store('fotos_responsaveis', 'public');
-    }
-
-    // Criar o aluno no banco de dados
-    Aluno::create($validated);
-
-    return redirect()->route('alunos.listar')->with('success', 'Aluno criado com sucesso!');
-}
 
     /**
      * Exibir os detalhes de um aluno específico.
@@ -105,7 +97,6 @@ class AlunoController extends Controller
     public function show($id)
     {
         $aluno = Aluno::findOrFail($id);
-
         return view('alunos.ver', compact('aluno'));
     }
 
@@ -115,7 +106,6 @@ class AlunoController extends Controller
     public function edit($id)
     {
         $aluno = Aluno::findOrFail($id);
-    
         return view('alunos.editar', compact('aluno'));
     }
 
@@ -123,108 +113,121 @@ class AlunoController extends Controller
      * Atualizar os dados de um aluno específico.
      */
     public function update(Request $request, Aluno $aluno)
-{
-    // Validação dos dados recebidos
-    $validated = $request->validate([
-        'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-
-        'nome' => 'nullable|string|max:255',
-        'data_de_nascimento' => 'nullable|date',
-        'idade' => 'nullable|integer',
-        'sexo' => 'nullable|string',
-        'cpf' => 'nullable|string|max:14',
-        'rg' => 'nullable|string|max:20',
-        'pai' => 'nullable|string|max:255',
-        'mae' => 'nullable|string|max:255',
-        'certidao' => 'nullable|string|max:255',
-        'naturalidade' => 'nullable|string|max:255',
-        'nacionalidade' => 'nullable|string|max:255',
-        'celular' => 'nullable|string|max:16',
-
-        'cep' => 'nullable|string|max:10',
-        'rua' => 'nullable|string|max:255',
-        'numero' => 'nullable|string|max:10',
-        'bairro' => 'nullable|string|max:255',
-        'cidade' => 'nullable|string|max:255',
-        'estado' => 'nullable|string|max:255',
-
-        'foto_responsavel' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-
-        'parentesco' => 'nullable|string|max:255',
-        'nome_completo_responsavel' => 'nullable|string|max:255',
-        'data_de_nascimento_responsavel' => 'nullable|date',
-        'idade_responsavel' => 'nullable|integer',
-        'sexo_responsavel' => 'nullable|string', // Ajustado para evitar duplicidade
-        'cpf_responsavel' => 'nullable|string|max:14',
-        'rg_responsavel' => 'nullable|string|max:20', // Ajustado para evitar duplicidade
-        'naturalidade_responsavel' => 'nullable|string|max:255',
-        'nacionalidade_responsavel' => 'nullable|string|max:255',
-        'celular_responsavel' => 'nullable|string|max:16',
-
-        'cep_responsavel' => 'nullable|string|max:10',
-        'rua_responsavel' => 'nullable|string|max:255',
-        'numero_responsavel' => 'nullable|string|max:10',
-        'bairro_responsavel' => 'nullable|string|max:255',
-        'cidade_responsavel' => 'nullable|string|max:255',
-        'estado_responsavel' => 'nullable|string|max:255',
-
-        'ano_letivo' => 'nullable|digits:4',
-        'turno' => 'nullable|string|max:10',
-        'status_da_matricula' => 'nullable|in:ativo,inativo,transferido',
-        'data_de_ingresso' => 'nullable|date',
-    ]);
-
-    // 📷 Atualizar a foto do aluno 
-    if ($request->hasFile('foto')) {
-    // Apagar a foto antiga se existir
-    if ($aluno->foto) {
-        $fotoAntiga = $aluno->foto; // Caminho correto relativo ao disco "public"
-
-        // Verificar se o arquivo existe antes de tentar excluir
-        if (Storage::disk('public')->exists($fotoAntiga)) {
-            Storage::disk('public')->delete($fotoAntiga);
-        } else {
-            dd('Arquivo antigo não encontrado: ' . $fotoAntiga);
-        }
-    }
-
-    // Salvar a nova foto
-    $validated['foto'] = $request->file('foto')->store('fotos_alunos', 'public');
-    }
-
-
-    if ($request->hasFile('foto_responsavel')) {
-        // Apagar a foto antiga se existir
-        if ($aluno->foto_responsavel) {
-            $fotoAntiga = $aluno->foto_responsavel; // Remova "public/"
-            
-            // Verificar se o arquivo realmente existe antes de tentar excluir
-            if (Storage::disk('public')->exists($fotoAntiga)) {
-                Storage::disk('public')->delete($fotoAntiga);
-            } else {
-                dd('Arquivo antigo não encontrado: ' . $fotoAntiga);
-            }
-        }
-    
-        // Salvar a nova foto
-        $validated['foto_responsavel'] = $request->file('foto_responsavel')->store('fotos_responsaveis', 'public');
-    }
-    
-
-
-        // Atualizar os dados do aluno no banco
-        $aluno->update($validated);
-
-        return redirect()->route('alunos.listar')->with('success', 'Aluno atualizado com sucesso!');
-    }
-
-    /**
-     * Remover um aluno do banco de dados.
-     */
-    public function destroy(Aluno $aluno)
     {
-        $aluno->delete();
-        return redirect()->route('alunos.listar')->with('success', 'Aluno excluído com sucesso!');
+        // Validação dos dados recebidos
+        $validated = $request->validate([
+            // 'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+
+            'nome' => 'nullable|string|max:255',
+            'data_de_nascimento' => 'nullable|date',
+            'idade' => 'nullable|integer',
+            'sexo' => 'nullable|string',
+            'cpf' => 'nullable|string|max:14',
+
+            'rg' => 'nullable|string|max:20',
+            'pai' => 'nullable|string|max:255',
+            'mae' => 'nullable|string|max:255',
+            'certidao' => 'nullable|string|max:255',
+
+            'naturalidade' => 'nullable|string|max:255',
+            'nacionalidade' => 'nullable|string|max:255',
+            'celular' => 'nullable|string|max:16',
+
+            'cep' => 'nullable|string|max:10',
+            'rua' => 'nullable|string|max:255',
+            'numero' => 'nullable|string|max:10',
+            'bairro' => 'nullable|string|max:255',
+            'cidade' => 'nullable|string|max:255',
+            'estado' => 'nullable|string|max:255',
+
+            // 'foto_responsavel' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+
+            'parentesco' => 'nullable|string|max:255',
+            'nome_completo_responsavel' => 'nullable|string|max:255',
+            'data_de_nascimento_responsavel' => 'nullable|date',
+            'idade_responsavel' => 'nullable|integer',
+            'sexo_responsavel' => 'nullable|string',
+
+            'cpf_responsavel' => 'nullable|string|max:14',
+            'rg_responsavel' => 'nullable|string|max:20',
+            'naturalidade_responsavel' => 'nullable|string|max:255',
+            'nacionalidade_responsavel' => 'nullable|string|max:255',
+            'celular_responsavel' => 'nullable|string|max:16',
+
+            'cep_responsavel' => 'nullable|string|max:10',
+            'rua_responsavel' => 'nullable|string|max:255',
+            'numero_responsavel' => 'nullable|string|max:10',
+            'bairro_responsavel' => 'nullable|string|max:255',
+            'cidade_responsavel' => 'nullable|string|max:255',
+            'estado_responsavel' => 'nullable|string|max:255',
+
+            'ano_letivo' => 'nullable|digits:4|integer|min:1900|max:2099',
+            'turno' => 'nullable|in:Manhã,Tarde,Noite',
+            // 'status_da_matricula' => 'nullable|in:ativo,inativo,transferido',
+            // 'data_de_ingresso' => 'nullable|date',
+        ]);
+
+    // // 📷 Atualizar a foto do Aluno 
+    // if ($request->hasFile('foto')) {
+    //     // Apagar a foto antiga se existir
+    //     if ($aluno->foto) {
+    //         $fotoAntiga = $aluno->foto; // Caminho correto relativo ao disco "public"
+    
+    //         // Verificar se o arquivo existe antes de tentar excluir
+    //         if (Storage::disk('public')->exists($fotoAntiga)) {
+    //             Storage::disk('public')->delete($fotoAntiga);
+    //         } else {
+    //             dd('Arquivo antigo não encontrado: ' . $fotoAntiga);
+    //         }
+    //     }
+    
+    //     // Salvar a nova foto
+    //     $validated['foto'] = $request->file('foto')->store('fotos_alunos', 'public');
+    //     }
+    
+    
+        // if ($request->hasFile('fotos_professores')) {
+        //     // Apagar a foto antiga se existir
+        //     if ($professor->foto_responsavel) {
+        //         $fotoAntiga = $professor->foto_responsavel; // Remova "public/"
+                
+        //         // Verificar se o arquivo realmente existe antes de tentar excluir
+        //         if (Storage::disk('public')->exists($fotoAntiga)) {
+        //             Storage::disk('public')->delete($fotoAntiga);
+        //         } else {
+        //             dd('Arquivo antigo não encontrado: ' . $fotoAntiga);
+        //         }
+        //     }
+        
+        //     // Salvar a nova foto
+        //     $validated['foto_responsavel'] = $request->file('foto_responsavel')->store('fotos_responsaveis', 'public');
+        // }
+        
+    
+    
+            // Atualizar os dados do professor no banco
+            $aluno->update($validated);
+
+    return redirect()->route('alunos.listar')->with('success', 'Aluno(a): <strong>' . $aluno->nome . '!</strong><br> Atualizado(a) com sucesso!');
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     /**

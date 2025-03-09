@@ -93,7 +93,6 @@ class ProfessorController extends Controller
      */
     public function update(Request $request, Professor $professor)
     {
-        // Validação dos dados recebidos
         $validated = $request->validate([
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'nome' => 'nullable|string|max:255',
@@ -117,25 +116,49 @@ class ProfessorController extends Controller
             'vinculo_empregaticio' => 'nullable|string|max:255',
         ]);
 
-        // 📷 Atualizar a foto do professor
+        // 📷 Atualizar a foto do professor 
     if ($request->hasFile('foto')) {
         // Apagar a foto antiga se existir
         if ($professor->foto) {
             $fotoAntiga = $professor->foto; // Caminho correto relativo ao disco "public"
-
+    
             // Verificar se o arquivo existe antes de tentar excluir
             if (Storage::disk('public')->exists($fotoAntiga)) {
                 Storage::disk('public')->delete($fotoAntiga);
+            } else {
+                dd('Arquivo antigo não encontrado: ' . $fotoAntiga);
             }
         }
-
-        // Salvar a nova foto e atualizar o banco de dados
-        $professor->foto = $request->file('foto')->store('fotos_professores', 'public');
-        $professor->save(); // 🔥 ESSA LINHA É ESSENCIAL PARA SALVAR NO BANCO DE DADOS
-    }
+    
+        // Salvar a nova foto
+        $validated['foto'] = $request->file('foto')->store('fotos_professores', 'public');
+        }
+    
+    
+        if ($request->hasFile('fotos_professores')) {
+            // Apagar a foto antiga se existir
+            if ($professor->foto_responsavel) {
+                $fotoAntiga = $professor->foto_responsavel; // Remova "public/"
+                
+                // Verificar se o arquivo realmente existe antes de tentar excluir
+                if (Storage::disk('public')->exists($fotoAntiga)) {
+                    Storage::disk('public')->delete($fotoAntiga);
+                } else {
+                    dd('Arquivo antigo não encontrado: ' . $fotoAntiga);
+                }
+            }
+        
+            // Salvar a nova foto
+            $validated['foto_responsavel'] = $request->file('foto_responsavel')->store('fotos_responsaveis', 'public');
+        }
+        
+    
+    
+            // Atualizar os dados do professor no banco
+            $professor->update($validated);
 
     // Redirecionar com uma mensagem de sucesso
-    return redirect()->route('professores.listar')->with('success', 'Professor atualizado com sucesso!');
+    return redirect()->route('professores.listar')->with('success', 'Professor(a): <strong>' . $professor->nome . '!</strong><br> Atualizado(a) com sucesso!');
 
     }
 
@@ -148,5 +171,23 @@ class ProfessorController extends Controller
         $professor->delete();
 
         return redirect()->route('professores.listar')->with('success', 'Professor excluído com sucesso!');
+    }
+
+    /**
+     * Buscar alunos com base em critérios fornecidos pelo usuário.
+     */
+    public function busca(Request $request)
+    {
+        $query = Professor::query();
+
+        if ($request->has('search') && !empty($request->search)) {
+            $query->where(function ($q) use ($request) {
+                $q->where('id', $request->search)
+                  ->orWhere('nome', 'LIKE', '%' . $request->search . '%');
+            });
+        }
+
+        $professores = $query->get();
+        return view('professores.listar', compact('professores'));
     }
 }
