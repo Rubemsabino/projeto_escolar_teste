@@ -174,8 +174,8 @@ class AlunoController extends Controller
         'data_de_ingresso' => 'nullable|date',
     ]);
 
-    // 📷 Atualizar a foto do aluno
-if ($request->hasFile('foto')) {
+    // 📷 Atualizar a foto do aluno 
+    if ($request->hasFile('foto')) {
     // Apagar a foto antiga se existir
     if ($aluno->foto) {
         $fotoAntiga = $aluno->foto; // Caminho correto relativo ao disco "public"
@@ -190,7 +190,7 @@ if ($request->hasFile('foto')) {
 
     // Salvar a nova foto
     $validated['foto'] = $request->file('foto')->store('fotos_alunos', 'public');
-}
+    }
 
 
     if ($request->hasFile('foto_responsavel')) {

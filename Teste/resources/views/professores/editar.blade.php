@@ -33,9 +33,9 @@ Swal.fire({
         class="w-20 h-20 rounded-full border-4 border-gray-300">
 </div>
 
-<h2 class="text-2xl font-bold mb-6 text-gray-500 text-center">EDITAR PROFESSOR</h2>
+<h2 class="text-2xl font-bold mb-6 text-bleck-500 text-center">EDITAR PROFESSOR</h2>
 
-<form action="{{ route('professores.atualizar', $professor->id) }}" method="POST" class="flex-1 overflow-y-auto p-4">
+<form action="{{ route('professores.atualizar', $professor->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <!-- Método HTTP PUT para atualização -->
@@ -51,7 +51,6 @@ Swal.fire({
             </div>
             <div>
                 <label for="foto" class="block text-gray-500">Foto</label>
-
                 <!-- Contêiner flex para alinhar a foto e o input com mais espaço entre eles -->
                 <div class="flex items-center space-x-8 mb-4">
                     <!-- Exibe a foto atual se existir -->

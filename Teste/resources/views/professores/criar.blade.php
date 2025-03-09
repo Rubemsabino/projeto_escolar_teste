@@ -201,9 +201,9 @@
                 <select id="turno_que_trabalha" name="turno_que_trabalha"
                     class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-gray-100">
                     <option value="" disabled selected>Selecione o turno</option>
-                    <option value="Matutino">Matutino</option>
-                    <option value="Vespetino">Vespetino</option>
-                    <option value="Nortuno">Nortuno</option>
+                    <option value="Manhã">Manhã</option>
+                    <option value="Tarde">Tarde</option>
+                    <option value="Noite">Noite</option>
                 </select>
             </div>
 

@@ -13,7 +13,7 @@
 
     <h2 class="text-2xl font-bold mb-6 text-black-500 text-center">EDITAR ALUNO</h2>
 
-    <form method="POST" action="{{ route('alunos.atualizar', $aluno->id) }}" enctype="multipart/form-data">
+    <form action="{{ route('alunos.atualizar', $aluno->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 

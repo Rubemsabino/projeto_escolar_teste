@@ -210,16 +210,16 @@
                 <select id="parentesco" name="parentesco"
                     class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-green-100">
                     <option value="" disabled selected>Selecione um parentesco</option>
-                    <option value="pai">Pai</option>
-                    <option value="mae">Mãe</option>
-                    <option value="irmao">Irmão</option>
-                    <option value="irma">Irmã</option>
-                    <option value="tio">Tio</option>
-                    <option value="tia">Tia</option>
-                    <option value="primo">Primo</option>
-                    <option value="prima">Prima</option>
-                    <option value="avo">Avô</option>
-                    <option value="avo">Avó</option>
+                    <option value="Pai">Pai</option>
+                    <option value="Mãe">Mãe</option>
+                    <option value="Irmão">Irmão</option>
+                    <option value="Irmã">Irmã</option>
+                    <option value="Tio">Tio</option>
+                    <option value="Tia">Tia</option>
+                    <option value="Primo">Primo</option>
+                    <option value="Prima">Prima</option>
+                    <option value="Avô">Avô</option>
+                    <option value="Avó">Avó</option>
 
                 </select>
             </div>

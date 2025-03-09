@@ -118,21 +118,25 @@ class ProfessorController extends Controller
         ]);
 
         // 📷 Atualizar a foto do professor
-        if ($request->hasFile('foto')) {
-            // Apagar a foto antiga se existir
-            if ($professor->foto && Storage::exists('public/' . $professor->foto)) {
-                Storage::delete('public/' . $professor->foto);
-            }
+    if ($request->hasFile('foto')) {
+        // Apagar a foto antiga se existir
+        if ($professor->foto) {
+            $fotoAntiga = $professor->foto; // Caminho correto relativo ao disco "public"
 
-            // Salvar a nova foto
-            $validated['foto'] = $request->file('foto')->store('fotos_professores', 'public');
+            // Verificar se o arquivo existe antes de tentar excluir
+            if (Storage::disk('public')->exists($fotoAntiga)) {
+                Storage::disk('public')->delete($fotoAntiga);
+            }
         }
 
-        // Atualizando os dados do professor
-        $professor->update($validated);
+        // Salvar a nova foto e atualizar o banco de dados
+        $professor->foto = $request->file('foto')->store('fotos_professores', 'public');
+        $professor->save(); // 🔥 ESSA LINHA É ESSENCIAL PARA SALVAR NO BANCO DE DADOS
+    }
 
-        // Redirecionar com uma mensagem de sucesso
-        return redirect()->route('professores.listar')->with('success', 'Professor atualizado com sucesso!');
+    // Redirecionar com uma mensagem de sucesso
+    return redirect()->route('professores.listar')->with('success', 'Professor atualizado com sucesso!');
+
     }
 
     /**
