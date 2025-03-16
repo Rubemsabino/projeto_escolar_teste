@@ -27,6 +27,7 @@
             <img src="{{ asset('imagens/logo.png') }}" alt="Foto do Aluno" class="w-10 h-10 rounded-full">
             <a href="{{ route('home') }}" class="text-xl font-bold">Meu Sistema</a>
 
+            <H1>Seja Bem-Vindo</H1>
             <!-- Menu Desktop -->
             <ul class="hidden md:flex space-x-6">
                 <li><a href="{{ route('home') }}" class="hover:text-gray-300">Início</a></li>
@@ -34,6 +35,7 @@
                 <li><a href="{{ route('professores.listar') }}" class="hover:text-gray-300">Professor</a></li>
                 <li><a href="#" class="hover:text-gray-300">Coordenação</a></li>
                 <li><a href="#" class="hover:text-gray-300">Direção</a></li>
+                <li><a href="#" class="hover:text-gray-300">Sair</a></li>
             </ul>
 
             <!-- Botão Menu Mobile -->

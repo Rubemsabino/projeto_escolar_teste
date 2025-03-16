@@ -37,23 +37,26 @@ Swal.fire({
     </div>
 
     <h2 class="text-2xl font-bold mb-6 text-black text-center">LISTA DE ALUNOS</h2>
-    <div class="flex items-center space-x-8 bg-white shadow-md rounded-lg p-4 mb-4">
-        <div class="flex-1">
-            <strong>Total de alunos cadastrados:</strong> {{ \App\Models\Aluno::count() }}
-        </div>
-        <div class="flex-1">
-            <strong>Total de alunos ativos:</strong>
-            {{ \App\Models\Aluno::where('status_da_matricula', 'ativo')->count() }}
-        </div>
-        <div class="flex-1">
-            <strong>Total de alunos inativos:</strong>
-            {{ \App\Models\Aluno::where('status_da_matricula', 'inativo')->count() }}
-        </div>
-        <div class="flex-1">
-            <strong>Total de alunos transferidos:</strong>
-            {{ \App\Models\Aluno::where('status_da_matricula', 'transferido')->count() }}
+    <div class="overflow-x-auto">
+        <div class="flex items-center space-x-8 bg-white shadow-md rounded-lg p-4 mb-4">
+            <div class="flex-1">
+                <strong>Total de alunos cadastrados:</strong> {{ \App\Models\Aluno::count() }}
+            </div>
+            <div class="flex-1">
+                <strong>Total de alunos ativos:</strong>
+                {{ \App\Models\Aluno::where('status_da_matricula', 'ativo')->count() }}
+            </div>
+            <div class="flex-1">
+                <strong>Total de alunos inativos:</strong>
+                {{ \App\Models\Aluno::where('status_da_matricula', 'inativo')->count() }}
+            </div>
+            <div class="flex-1">
+                <strong>Total de alunos transferidos:</strong>
+                {{ \App\Models\Aluno::where('status_da_matricula', 'transferido')->count() }}
+            </div>
         </div>
     </div>
+
 
 
 

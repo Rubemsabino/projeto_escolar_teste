@@ -34,7 +34,7 @@
 
 <h2 class="text-2xl font-bold mb-6 text-black-500 text-center">NOVO ALUNO</h2>
 
-<form action="{{ route('alunos.salvar') }}" method="POST" enctype="multipart/form-data"
+<form onkeydown="return event.key != 'Enter';" action="{{ route('alunos.salvar') }}" method="POST" enctype="multipart/form-data"
     class="flex-1 overflow-y-auto p-4">
     @csrf
     <fieldset class="border border-gray-400 p-4 rounded-lg">
