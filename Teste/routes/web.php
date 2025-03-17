@@ -5,8 +5,8 @@ use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\ProfessorController;
 
 Route::get('/', function () {
-    return view('home');
-})->name('home');
+    return view('welcome');
+})->name('welcome');
 
 Route::prefix('alunos')->name('alunos.')->group(function () {
     Route::get('listar', [AlunoController::class, 'index'])->name('listar'); // Listar alunos
@@ -31,3 +31,13 @@ Route::prefix('professores')->name('professores.')->group(function () {
 });
 
 
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
