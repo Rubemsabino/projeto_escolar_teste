@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Professor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
 
 class ProfessorController extends Controller
 {
@@ -60,6 +61,12 @@ class ProfessorController extends Controller
 
         // Criar o professor no banco de dados
         Professor::create($validated);
+        User::create([
+            'name' => $validated['nome'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['cpf']),
+            'role' => 'professor'
+        ]);
 
         return redirect()->route('professores.listar')->with('success', 'Professor criado com sucesso!');
     }
@@ -117,29 +124,29 @@ class ProfessorController extends Controller
         ]);
 
         // 📷 Atualizar a foto do professor 
-    if ($request->hasFile('foto')) {
-        // Apagar a foto antiga se existir
-        if ($professor->foto) {
-            $fotoAntiga = $professor->foto; // Caminho correto relativo ao disco "public"
-    
-            // Verificar se o arquivo existe antes de tentar excluir
-            if (Storage::disk('public')->exists($fotoAntiga)) {
-                Storage::disk('public')->delete($fotoAntiga);
-            } else {
-                dd('Arquivo antigo não encontrado: ' . $fotoAntiga);
+        if ($request->hasFile('foto')) {
+            // Apagar a foto antiga se existir
+            if ($professor->foto) {
+                $fotoAntiga = $professor->foto; // Caminho correto relativo ao disco "public"
+
+                // Verificar se o arquivo existe antes de tentar excluir
+                if (Storage::disk('public')->exists($fotoAntiga)) {
+                    Storage::disk('public')->delete($fotoAntiga);
+                } else {
+                    dd('Arquivo antigo não encontrado: ' . $fotoAntiga);
+                }
             }
+
+            // Salvar a nova foto
+            $validated['foto'] = $request->file('foto')->store('fotos_professores', 'public');
         }
-    
-        // Salvar a nova foto
-        $validated['foto'] = $request->file('foto')->store('fotos_professores', 'public');
-        }
-    
-    
+
+
         if ($request->hasFile('fotos_professores')) {
             // Apagar a foto antiga se existir
             if ($professor->foto_responsavel) {
                 $fotoAntiga = $professor->foto_responsavel; // Remova "public/"
-                
+
                 // Verificar se o arquivo realmente existe antes de tentar excluir
                 if (Storage::disk('public')->exists($fotoAntiga)) {
                     Storage::disk('public')->delete($fotoAntiga);
@@ -147,19 +154,18 @@ class ProfessorController extends Controller
                     dd('Arquivo antigo não encontrado: ' . $fotoAntiga);
                 }
             }
-        
+
             // Salvar a nova foto
             $validated['foto_responsavel'] = $request->file('foto_responsavel')->store('fotos_responsaveis', 'public');
         }
-        
-    
-    
-            // Atualizar os dados do professor no banco
-            $professor->update($validated);
 
-    // Redirecionar com uma mensagem de sucesso
-    return redirect()->route('professores.listar')->with('success', 'Professor(a): <strong>' . $professor->nome . '!</strong><br> Atualizado(a) com sucesso!');
 
+
+        // Atualizar os dados do professor no banco
+        $professor->update($validated);
+
+        // Redirecionar com uma mensagem de sucesso
+        return redirect()->route('professores.listar')->with('success', 'Professor(a): <strong>' . $professor->nome . '!</strong><br> Atualizado(a) com sucesso!');
     }
 
     /**
@@ -183,7 +189,7 @@ class ProfessorController extends Controller
         if ($request->has('search') && !empty($request->search)) {
             $query->where(function ($q) use ($request) {
                 $q->where('id', $request->search)
-                  ->orWhere('nome', 'LIKE', '%' . $request->search . '%');
+                    ->orWhere('nome', 'LIKE', '%' . $request->search . '%');
             });
         }
 

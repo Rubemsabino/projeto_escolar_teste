@@ -1,45 +1,73 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<html lang="pt-BR">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title', 'Meu Sistema')</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('imagens/logo.png') }}">
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-        <!-- Styles -->
-        @livewireStyles
-    </head>
-    <body class="font-sans antialiased">
-        <x-banner />
+    <!-- Flowbite Icons -->
+    <link href="https://unpkg.com/flowbite@1.5.1/dist/flowbite.min.css" rel="stylesheet" />
 
-        <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
+<body class="bg-gray-300">
+    <!-- Navbar -->
+    <nav class="bg-blue-600 text-white p-4 shadow-md" x-data="{ open: false }">
+        <div class="container mx-auto flex justify-between items-center">
+            <img src="{{ asset('imagens/logo.png') }}" alt="Foto do Aluno" class="w-10 h-10 rounded-full">
+            <a href="{{ route('home') }}" class="text-xl font-bold">Meu Sistema</a>
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+            <H1>Seja Bem-Vindo</H1>
+            <!-- Menu Desktop -->
+            <ul class="hidden md:flex space-x-6">
+                <li><a href="{{ route('home') }}" class="hover:text-gray-300">Início</a></li>
+
+                @if(auth()->user()->role !== 'aluno')
+                <!-- Verifica se o usuário logado é um aluno e nao exibe as opcoes abaixo -->
+                <li><a href="{{ route('alunos.listar') }}" class="hover:text-gray-300">Aluno</a></li>
+                <li><a href="{{ route('professores.listar') }}" class="hover:text-gray-300">Professor</a></li>
+                <li><a href="#" class="hover:text-gray-300">Coordenação</a></li>
+                <li><a href="#" class="hover:text-gray-300">Direção</a></li>
+                <li>
+                    @endif
+
+                    <form method="POST" action="{{ route('logout') }}" x-data>
+                        @csrf
+                        <a href="#" @click.prevent="$root.submit()" class="hover:text-gray-300">Sair</a>
+                </li>
+                </form>
+            </ul>
+
+            <!-- Botão Menu Mobile -->
+            <button @click="open = !open" class="md:hidden text-white focus:outline-none">
+                ☰
+            </button>
         </div>
 
-        @stack('modals')
+        <!-- Menu Mobile -->
+        <div x-show="open" class="md:hidden bg-blue-700 text-white p-4 space-y-2">
+            <a href="{{ route('home') }}" class="block py-2 hover:text-gray-300">Início</a>
+            <a href="{{ route('alunos.listar') }}" class="block py-2 hover:text-gray-300">Aluno</a>
+            <a href="{{ route('professores.listar') }}" class="block py-2 hover:text-gray-300">Professor</a>
+            <a href="#" class="block py-2 hover:text-gray-300">Coordenação</a>
+            <a href="#" class="block py-2 hover:text-gray-300">Direção</a>
+        </div>
+    </nav>
 
-        @livewireScripts
-    </body>
+    <!-- Conteúdo da Página -->
+    <div class="container mx-auto p-8 bg-white shadow-xl rounded-lg mt-6">
+        @yield('content')
+    </div>
+</body>
+
 </html>
