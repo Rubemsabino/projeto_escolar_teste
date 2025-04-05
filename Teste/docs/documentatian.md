@@ -10,6 +10,11 @@
 - [2. ORGANIZANDO O AMBIENTE PARA A CRIAÇÃO.](organizando_ambiente.md)
 - [3. ARMAZENAR O PROJETO LARAVEL NO GITHUB.](armazenar_github.md)
 - [4. DANDO INICIO AO PROJETO INSTALADO JETSTREAM NO LARAVEL.](instalando_jetstream.md)
+- [5. MODIFICANDO OS ARGUIVOS QUE VEM NO JETSTREAM.](modificando.md)
+
+
+
+
 - [5. CRIANDO: MODEL, MIGRATIONS, CONTROLER RESOURCE FACTORYES E SEEDERS.](criacao_model_mcrfs.md)
 - [5. MIGRATIONS.](inicio_ao_projeto_migrations)
 - [6. MODELS.](models.md)
@@ -18,6 +23,7 @@
 - [10. CONTROLLER.](controllers.md)
 - [11. ROTAS.](rotas.md)
 - [12. VIEWS.](views.md)
+- [13. ALTERAÇÕES NO BANCO DE DADOS.](Alteracoes_no_BD.md)
 
  # Extras
 - [RODAR PROJETO NO CELULAR.](rodar_celular.md)

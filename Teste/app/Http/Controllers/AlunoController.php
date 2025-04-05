@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Aluno;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class AlunoController extends Controller
