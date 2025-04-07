@@ -227,7 +227,9 @@ class AlunoController extends Controller
             $query->where(function ($q) use ($request) {
                 $q->where('id', $request->search)
                     ->orWhere('nome', 'LIKE', '%' . $request->search . '%')
-                    ->orWhere('nome_completo_responsavel', 'LIKE', '%' . $request->search . '%');
+                    ->orWhere('nome_completo_responsavel', 'LIKE', '%' . $request->search . '%')
+                    ->orWhere('cpf_responsavel', 'LIKE', '%' . $request->search . '%')
+                    ->orWhere('cpf', 'LIKE', '%' . $request->search . '%');
             });
         }
 
