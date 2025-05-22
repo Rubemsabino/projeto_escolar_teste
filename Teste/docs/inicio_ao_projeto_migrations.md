@@ -1,15 +1,8 @@
 - [VOLTAR](documentatian.md)
-# DANDO INICIO AO PROJETO OU SEJA, DEPOIS DAS CONFIGURAÇÕES ANTERIORES...
+# MIGRATION...
 
 Obs: Se for criar alguma migration que irar ter relacionamento com outra tabela, está outra terá que já existir.
 
-SE QUISER APAGAR TUDO DE UMA ÚNICA VEZ (Aluno e a referencia para apagar.)
-Terminal:
-	rm -f app/Models/Aluno.php \ 
-      	app/Http/Controllers/AlunoController.php \
-      	database/migrations/*_create_alunos_table.php \
-      	database/factories/AlunoFactory.php \
-      	database/seeders/AlunoSeeder.php
 
 2. Trabalhando a migrations criada.
 Abra: database/migrations/ e a migrations que você criou.
@@ -17,8 +10,8 @@ Abra: database/migrations/ e a migrations que você criou.
 2.1 Veja a questão do nome se estar escrita no plural certinho e crie os campos aqui:
 
 2.2 Abrindo a migrations criada para criar os campos.
-
-Schema::create('alunos', function (Blueprint $table) {
+```sh
+Schema::create('escolas', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
             $table->string('cpf')->unique()->nullable(); // CPF do aluno, se aplicável
@@ -35,11 +28,23 @@ Schema::create('alunos', function (Blueprint $table) {
             $table->string('nome_mae')->nullable(); // Nome da mãe
             $table->string('imagem')->nullable(); // Caminho ou URL da imagem
             $table->timestamps();
+            });
+```
+
+2.3 Rodando as migrations criada.
+Terminal:
+```sh
+	php artisan migrate 
+
+````
+(cria os campos da migrations)
+
+
 
 O relacionamento para este exemplo, estou criando a migration turma.
 	    $table->foreignId('professor_id')->constrained('professores')->onDelete('set null')->nullable(); // Professor responsável da turma.
             
-        });
+        
 
 
 Se tiver relacionamento você precisa configurar os relacionamentos no Model correspondente.
@@ -52,7 +57,15 @@ acrescenta isto depois do protected do campos
         return $this->belongsTo(Professor::class, 'professor_id');
     }
 
-
+SE QUISER APAGAR TUDO DE UMA ÚNICA VEZ (Aluno e a referencia para apagar.)
+Terminal:
+```sh
+	rm -f app/Models/Aluno.php \ 
+      	app/Http/Controllers/AlunoController.php \
+      	database/migrations/*_create_alunos_table.php \
+      	database/factories/AlunoFactory.php \
+      	database/seeders/AlunoSeeder.php
+```
 
 
 
@@ -184,10 +197,7 @@ class Turma extends Model
 
 
 
-2.2 Rodando as migrations criada.
-Terminal:
-	php artisan migrate 
-(cria os campos da migrations)
+
 
 Obs: roda só um determinada migration , tenha cuidado mudando apenas o nome.
 Terminal:

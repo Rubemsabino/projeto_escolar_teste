@@ -21,8 +21,8 @@
 
     <style>
         .gradient-bg {
-            background: linear-gradient(135deg, #ffffff 0%, #fff9c4 30%, #fff59d 60%, #ffeb3b 100%);
-            min-height: 100vh;
+        background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 30%, #bbdefb 60%, #2196f3 100%);
+        min-height: 100vh;
         }
 
         @keyframes fire-pulse {
@@ -87,19 +87,19 @@
                 <!-- Logo -->
                 <div class="mb-6 flex justify-center">
                     <a href="{{ route('login') }}" class="block hover:scale-105 transition-transform duration-200">
-                        <img src="{{ asset('imagens/logo.png') }}" alt="Logo do Reforço Escolar"
+                        <img src="{{ asset('imagens/jmws_logo.png') }}" alt="Logo do Reforço Escolar"
                             class="w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-gray-300 hover:border-blue-500 transition-all 
                                    animate-pulse hover:animate-none animate-infinite animate-duration-[2000ms] animate-ease-in-out">
                     </a>
                 </div>
                 <div class="text-center mb-10">
                     <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 animate-fade-in">
-                        Bem-vindo(a) a Escola <span class="text-blue-600">Reforço Escolar!</span>
+                        Bem-vindo(a) ao Nosso <span class="text-blue-600">JMWS.Sistemas!</span>
                     </h1>
 
                     <div class="max-w-2xl mx-auto">
                         <p class="text-lg md:text-xl text-gray-600 mb-6 leading-relaxed">
-                            <span class="block mb-3">Sua jornada educacional começa aqui.</span>
+                            <span class="block mb-3">Sua jornada para muitos sistemas começa aqui.</span>
                             <span class="block text-sm md:text-base">
                                 <span class="animate-fire-pulse">✨ ACESSE O SISTEMA CLICANDO NA LOGO ACIMA! ✨</span>
                             </span>
@@ -145,7 +145,7 @@
                 <script>
                     // Opcional: Pode carregar o nome da escola via API ou configuração
                     document.getElementById('school-name').textContent = 
-                        window.schoolName || 'Reforço Escolar';
+                        window.schoolName || 'JMWS.Sistemas';
                 </script>
             </div>
         </div>

@@ -4,10 +4,13 @@
 Abra: database/factories/ e a factories que você criou.
 
 4.1 Pegue os campos da migrations, abra o gpt e peça para criar com base nestes scripts, um arquivo factories.
-4.2 Abrindo a factories criada, logo abaixo no nomespace importe a: use App\Models\Professor;
-4.3 Atualize a factories, logo abaixo da { da: class CoordenadoraFactory extends Factory, importe o:  protected $model = 4.4 Professor::class;
-4.4 Atualize a factories com o que gpt criou, ficando assim como o exemplo:
 
+4.2 Abrindo a factories criada, logo abaixo no nomespace importe a: use App\Models\Professor;
+
+4.3 Atualize a factories, logo abaixo da { da: class CoordenadoraFactory extends Factory, importe o:  protected $model = 4.4 Professor::class;
+
+4.4 Atualize a factories com o que gpt criou, ficando assim como o exemplo:
+```sh
 return [
 
 'foto' => $this->faker->imageUrl(),
@@ -31,5 +34,5 @@ return [
 'estado' => $this->faker->state(),
 
  ];
-
+```
 - [VOLTAR](documentatian.md)

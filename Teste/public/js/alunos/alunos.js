@@ -68,7 +68,7 @@ function mascaraCertidaoNascimento(input) {
 // Mascara para o celular
 function mascaraCelular(input) {
     let value = input.value.replace(/\D/g, ''); // Remove qualquer caractere não numérico
-    let formato = '(##) #.####.####'; // Define o formato da máscara
+    let formato = '(##) #.####-####'; // Define o formato da máscara
 
     let i = 0;
     input.value = formato.replace(/#/g, function () {
@@ -174,7 +174,7 @@ document.getElementById('naturalidade_responsavel').addEventListener('input', as
 // Mascara para o celular_responsavel
 function mascaraCelular_responsavel(input) {
     let value = input.value.replace(/\D/g, ''); // Remove qualquer caractere não numérico
-    let formato = '(##) #.####.####'; // Define o formato da máscara
+    let formato = '(##) #.####-####'; // Define o formato da máscara
 
     let i = 0;
     input.value = formato.replace(/#/g, function () {
@@ -269,7 +269,7 @@ function calcularIdade() {
 }
 
 // Calcula a idade automaticamente ao carregar a página se houver um valor salvo
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // Verifica se o campo de data de nascimento do responsável já tem um valor e, se tiver, calcula a idade
     if (document.getElementById("data_de_nascimento_responsavel").value) {
         calcularIdadeResponsavel();
@@ -278,7 +278,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // Função para calcular a idade do responsável com base na data de nascimento
 // Calcula a idade automaticamente ao carregar a página se houver um valor salvo
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     if (document.getElementById("data_de_nascimento_responsavel").value) {
         calcularIdadeResponsavel();
     }

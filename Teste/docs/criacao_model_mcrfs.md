@@ -2,7 +2,7 @@
 # DANDO INICIO AO PROJETO CRIANDO: MODEL, MIGRATIONS, CONTROLER RESOURCE FACTORYES E SEEDES.
 1.Criando
 
-Model: app/Models/Professor.php
+Model: app/Models/Aluno.php
 
 Migration: database/migrations/xxxx_xx_xx_xxxxxx_create_aluno_table.php
 

@@ -5,6 +5,8 @@
  # Projeto Laravel, a ordem ideal para começar depende da abordagem e da funcionalidade que você quer implementar. Aqui está uma sugestão lógica e prática para organizar o trabalho:
 
  # menu
+- [0. PROJETO SISTEMA ESCOLAR COMPLETO.](projeto.md)
+- [J1. ETAPAS EXTRUTURADAS DE UM SISTEMA MULTIESCOLAR.](J.como_iniciar.md)
 
 - [1. INSTALAÇÃO DO XAMPP E O COMPOSER.]()
 - [2. ORGANIZANDO O AMBIENTE PARA A CRIAÇÃO.](organizando_ambiente.md)
@@ -12,22 +14,19 @@
 - [4. DANDO INICIO AO PROJETO INSTALADO JETSTREAM NO LARAVEL.](instalando_jetstream.md)
 - [5. MODIFICANDO OS ARGUIVOS QUE VEM NO JETSTREAM.](modificando.md)
 - [6. CRIAÇÃO DE DASHBOARDS DIFERENTES PARA CADA USUÁRIO.](dashboards.md)
-
-
-
-
-- [5. CRIANDO: MODEL, MIGRATIONS, CONTROLER RESOURCE FACTORYES E SEEDERS.](criacao_model_mcrfs.md)
-- [5. MIGRATIONS.](inicio_ao_projeto_migrations)
-- [6. MODELS.](models.md)
-- [7. FACTORIES.](factorires.md)
-- [8. SEEDERS.](seeders.md)
-- [10. CONTROLLER.](controllers.md)
-- [11. ROTAS.](rotas.md)
-- [12. VIEWS.](views.md)
-- [13. ALTERAÇÕES NO BANCO DE DADOS.](Alteracoes_no_BD.md)
+- [7. CRIANDO: MODEL, MIGRATIONS, CONTROLER RESOURCE FACTORYES E SEEDERS.](criacao_model_mcrfs.md)
+- [8. MIGRATIONS.](inicio_ao_projeto_migrations)
+- [9. MODELS.](models.md)
+- [10. FACTORIES.](factorires.md)
+- [11. SEEDERS.](seeders.md)
+- [12. CONTROLLER.](controllers.md)
+- [13. ROTAS.](rotas.md)
+- [14. VIEWS.](views.md)
+- [15. ALTERAÇÕES NO BANCO DE DADOS.](Alteracoes_no_BD.md)
 
  # Extras
 - [RODAR PROJETO NO CELULAR.](rodar_celular.md)
+- [ALTERAR FORMULÁRIO.](alterar_formulario.md)
 
 CRUD
 https://imasters.com.br/php/como-fazer-um-crud-no-laravel-do-zero-parte-1

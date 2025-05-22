@@ -6,7 +6,7 @@
 
 @if(session('success'))
 <script>
-Swal.fire({
+    Swal.fire({
     title: 'Sucesso!',
     html: "{!! html_entity_decode(session('success')) !!}",
     icon: 'success',
@@ -20,7 +20,7 @@ Swal.fire({
 
 @if(session('error'))
 <script>
-Swal.fire({
+    Swal.fire({
     title: 'Erro!',
     text: "{{ session('error') }}",
     icon: 'error',

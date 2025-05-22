@@ -2,7 +2,7 @@
     <x-authentication-card>
         <x-slot name="logo">
             <div class="mb-6 flex justify-center">
-                <img src="{{ asset('imagens/logo.png') }}" alt="Foto do Aluno"
+                <img src="{{ asset('imagens/JMWS_logo.png') }}" alt="Foto do Aluno"
                     class="w-20 h-20 rounded-full border-4 border-gray-300">
             </div>
             {{--
@@ -17,7 +17,7 @@
         </div>
         @endsession
 
-        <form method="POST" action="{{ route('login') }}" class="bg-yellow-100 rounded-lg p-6">
+        <form method="POST" action="{{ route('login') }}" class="bg-blue-100 rounded-lg p-6">
             @csrf
 
             <div>
@@ -47,7 +47,7 @@
                 </a>
                 @endif
 
-                <x-button class="ms-4 bg-yellow-500 hover:bg-yellow-600 rounded-md">
+                <x-button class="ms-4 bg-blue-500 hover:bg-blue-600 rounded-md">
                     {{ __('Log in') }}
                 </x-button>
             </div>

@@ -1,29 +1,29 @@
 - [VOLTAR](documentatian.md)
 # Trabalhando os Métodos no controllers para implementar a lógica.
-Abra: app/Http/ e a controllers que você crio
+Abra: app/Http/ e a controllers que você criou
 
 6.1 index()	Ajusta o método para lista todos os registros.
-
+```sh
 public function index()
     {
         $alunos = Aluno::all();
         return view('alunos.listar', compact('alunos'));
     }
-
+```
 6.2 Criar o grupo de rota.
-
+```sh
 Route::prefix('alunos')->name('alunos.')->group(function () {
     
 });
-
+```
 6.3 Criar a rota para lista, dentro do grupo de rota aluno no exemplo, olhe se no inicio tem use da rota criada
 EX: use App\Http\Controllers\CoordenadorController;
-
+```sh
 Route::prefix('alunos')->name('alunos.')->group(function () {
     Route::get('listar', [AlunoController::class, 'index'])->name('listar'); // Listar alunos
     
 });
-
+```
 6.4 Trabalhando com as views.
 Abra: database/views/ e criar uma pasta para colocar os arquivo blade.php nela ex: aluno.
 

@@ -5,25 +5,25 @@
 @section('content')
 
 @if(session('success'))
-    <script>
-        Swal.fire({
+<script>
+    Swal.fire({
             title: 'Sucesso!',
             text: '{{ session('success') }}',
             icon: 'success',
             confirmButtonText: 'OK'
         });
-    </script>
+</script>
 @endif
 
 @if($errors->any())
-    <script>
-        Swal.fire({
+<script>
+    Swal.fire({
             title: 'Erro!',
             text: '{{ $errors->first() }}',
             icon: 'error',
             confirmButtonText: 'OK'
         });
-    </script>
+</script>
 @endif
 
 <!-- Logo -->
@@ -34,8 +34,8 @@
 
 <h2 class="text-2xl font-bold mb-6 text-black-500 text-center">NOVO ALUNO</h2>
 
-<form onkeydown="return event.key != 'Enter';" action="{{ route('alunos.salvar') }}" method="POST" enctype="multipart/form-data"
-    class="flex-1 overflow-y-auto p-4">
+<form onkeydown="return event.key != 'Enter';" action="{{ route('alunos.salvar') }}" method="POST"
+    enctype="multipart/form-data" class="flex-1 overflow-y-auto p-4">
     @csrf
     <fieldset class="border border-gray-400 p-4 rounded-lg">
         <legend class="text-gray-600 font-semibold px-2">Informações Pessoais</legend>
@@ -89,15 +89,24 @@
             </div>
         </div>
 
-        <div class="mb-4 grid grid-cols-1 md:grid-cols-7 gap-4">
-
-            <div>
+        <div class="mb-4 grid grid-cols-1 md:grid-cols-9 gap-4">
+            <!-- RG (ocupa 1 coluna) -->
+            <div class="md:col-span-1">
                 <label for="rg" class="block text-gray-500">RG</label>
                 <input type="text" id="rg" name="rg"
                     class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-green-100"
                     placeholder="Só números">
             </div>
 
+            <!-- Email (ocupa 2 colunas) -->
+            <div class="md:col-span-2">
+                <label for="email" class="block text-gray-500">Email</label>
+                <input type="email" id="email" name="email"
+                    class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-green-100"
+                    placeholder="Digite o email">
+            </div>
+
+            <!-- Pai (ocupa 2 colunas) -->
             <div class="md:col-span-2">
                 <label for="pai" class="block text-gray-500">Pai</label>
                 <input type="text" id="pai" name="pai"
@@ -105,6 +114,7 @@
                     placeholder="Digite nome do pai">
             </div>
 
+            <!-- Mãe (ocupa 2 colunas) -->
             <div class="md:col-span-2">
                 <label for="mae" class="block text-gray-500">Mãe</label>
                 <input type="text" id="mae" name="mae"
@@ -112,13 +122,13 @@
                     placeholder="Digite nome da mae">
             </div>
 
+            <!-- Certidão (ocupa 1 coluna) -->
             <div class="md:col-span-2">
                 <label for="certidao" class="block text-gray-500">Certidão de Nascimento</label>
                 <input type="text" id="certidao" name="certidao"
                     class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-green-100"
                     placeholder="Só números" oninput="mascaraCertidaoNascimento(this)">
             </div>
-
         </div>
 
         <div class="mb-4 grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -258,7 +268,7 @@
             </div>
         </div>
 
-        <div class="mb-4 grid grid-cols-1 md:grid-cols-5 gap-4">
+        <div class="mb-4 grid grid-cols-1 md:grid-cols-7 gap-4">
 
             <div>
                 <label for="cpf_responsavel" class="block text-gray-500">CPF</label>
@@ -267,11 +277,19 @@
                     placeholder="Só números">
             </div>
 
-            <div>
+            <div class="md:col-span-1">
                 <label for="rg_responsavel" class="block text-gray-500">RG</label>
                 <input type="text" id="rg_responsavel" name="rg_responsavel"
                     class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-green-100"
                     placeholder="Só números">
+            </div>
+
+            <!-- Email (ocupa 2 colunas) -->
+            <div class="md:col-span-2">
+                <label for="email_responsave" class="block text-gray-500">Email</label>
+                <input type="email_responsave" id="email_responsave" name="email_responsave"
+                    class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-green-100"
+                    placeholder="Digite o email">
             </div>
 
             <div>

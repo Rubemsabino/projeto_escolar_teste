@@ -17,7 +17,8 @@ return new class extends Migration
                 'professor',
                 'coordenador',
                 'master',
-                'diretor'
+                'diretor',
+                'responsavel'
             ])->default('aluno')->after('email');
         });
     }
