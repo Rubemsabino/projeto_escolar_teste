@@ -17,12 +17,36 @@
 
 @if($errors->any())
 <script>
-    Swal.fire({
-            title: 'Erro!',
-            text: '{{ $errors->first() }}',
+    document.addEventListener('DOMContentLoaded', function() {
+        // Coleta todos os erros
+        const errors = {!! json_encode($errors->messages()) !!};
+        let errorMessages = '';
+        
+        // Constrói mensagem com todos os erros
+        for (const [field, messages] of Object.entries(errors)) {
+            errorMessages += `${messages.join(', ')}<br>`;
+        }
+        
+        Swal.fire({
+            title: 'Erros no formulário',
+            html: errorMessages,
             icon: 'error',
             confirmButtonText: 'OK'
+        }).then(() => {
+            // Foca no primeiro campo com erro
+            const firstErrorField = document.querySelector(
+                `[name="${Object.keys(errors)[0]}"], 
+                 #${Object.keys(errors)[0]}, 
+                 [data-field="${Object.keys(errors)[0]}"]`
+            );
+            
+            if (firstErrorField) {
+                firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                firstErrorField.focus();
+                firstErrorField.classList.add('is-invalid');
+            }
         });
+    });
 </script>
 @endif
 
@@ -33,6 +57,7 @@
 </div>
 
 <h2 class="text-2xl font-bold mb-6 text-black-500 text-center">NOVO ALUNO</h2>
+<h6 class="text-2xl font-bold mb-6 text-black-500 text-center text-red-500">Campos com * são obrigatórios</h6>
 
 <form onkeydown="return event.key != 'Enter';" action="{{ route('alunos.salvar') }}" method="POST"
     enctype="multipart/form-data" class="flex-1 overflow-y-auto p-4">
@@ -50,14 +75,14 @@
 
         <div class="mb-4 grid grid-cols-1 md:grid-cols-6 gap-4">
             <div class="md:col-span-2">
-                <label for="nome" class="block text-gray-500">Nome</label>
+                <label for="nome" class="block text-red-500">* Nome</label>
                 <input type="text" id="nome" name="nome"
                     class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-green-100"
-                    placeholder="Digite seu nome completo" required>
+                    placeholder="Digite seu nome completo">
             </div>
 
             <div>
-                <label for="data_de_nascimento" class="block text-gray-500">Data de Nascimento</label>
+                <label for="data_de_nascimento" class="block text-red-500">* Data de Nascimento</label>
                 <input type="date" id="data_de_nascimento" name="data_de_nascimento"
                     class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-green-100"
                     onchange="calcularIdade()">
@@ -100,7 +125,7 @@
 
             <!-- Email (ocupa 2 colunas) -->
             <div class="md:col-span-2">
-                <label for="email" class="block text-gray-500">Email</label>
+                <label for="email" class="block text-red-500">* Email</label>
                 <input type="email" id="email" name="email"
                     class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-green-100"
                     placeholder="Digite o email">
@@ -235,7 +260,7 @@
             </div>
 
             <div class="md:col-span-2">
-                <label for="nome_completo_responsavel" class="block text-gray-500">Nome</label>
+                <label for="nome_completo_responsavel" class="block text-red-500">* Nome</label>
                 <input type="text" id="nome_completo_responsavel" name="nome_completo_responsavel"
                     class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-green-100"
                     placeholder="Digite seu nome completo">
@@ -271,7 +296,7 @@
         <div class="mb-4 grid grid-cols-1 md:grid-cols-7 gap-4">
 
             <div>
-                <label for="cpf_responsavel" class="block text-gray-500">CPF</label>
+                <label for="cpf_responsavel" class="block text-red-500">* CPF</label>
                 <input type="text" id="cpf_responsavel" name="cpf_responsavel"
                     class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-green-100"
                     placeholder="Só números">
@@ -286,8 +311,8 @@
 
             <!-- Email (ocupa 2 colunas) -->
             <div class="md:col-span-2">
-                <label for="email_responsave" class="block text-gray-500">Email</label>
-                <input type="email_responsave" id="email_responsave" name="email_responsave"
+                <label for="email_responsavel" class="block text-red-500">* Email</label>
+                <input type="email_responsavel" id="email_responsavel" name="email_responsavel"
                     class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-green-100"
                     placeholder="Digite o email">
             </div>
