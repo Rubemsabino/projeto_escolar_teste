@@ -6,10 +6,14 @@ Abra: app/Http/ e a controllers que você criou
 ```sh
 public function index()
     {
-        $alunos = Aluno::all();
-        return view('alunos.listar', compact('alunos'));
+        return (new AlunoService())->index();
     }
 ```
+Paralelo a isto, Abra: app/Service/ e crie o arquivo AlunoService.php
+Faça as devidas atualizações.
+
+
+
 6.2 Criar o grupo de rota.
 ```sh
 Route::prefix('alunos')->name('alunos.')->group(function () {

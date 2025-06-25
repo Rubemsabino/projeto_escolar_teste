@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class AlunoService
 {
-    public function getAlunos()
+    public function index()
     {
         $alunos = Aluno::all();
         return view('alunos.listar', compact('alunos'));
@@ -17,7 +17,7 @@ class AlunoService
 
     public function store($request)
     {
-        dd($request->all());
+        // dd($request->all());
         $validated = $request->validate([
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'nome' => 'required|string|max:255',
@@ -29,7 +29,7 @@ class AlunoService
             'email' => 'required|string|max:255',
             'pai' => 'nullable|string|max:255',
             'mae' => 'nullable|string|max:255',
-            'certidao' => 'nullable|string|max:255|unique:alunos,certidao',
+            'certidao' => 'nullable|string|max:255',
             'naturalidade' => 'nullable|string|max:255',
             'nacionalidade' => 'nullable|string|max:255',
             'celular' => 'nullable|string|max:16',
@@ -44,7 +44,7 @@ class AlunoService
             'nome_completo_responsavel' => 'required|string|max:255',
             'data_de_nascimento_responsavel' => 'nullable|date',
             'idade_responsavel' => 'nullable|integer',
-            'sexo' => 'nullable|string',
+            'sexo_responsavel' => 'nullable|string',
             'cpf_responsavel' => 'required|string|max:14',
             'rg_responsavel' => 'nullable|string|max:20',
             'email_responsavel' => 'required|string|max:255',
@@ -76,24 +76,28 @@ class AlunoService
         // Criar o aluno no banco de dados e recuperar o aluno criado
         $aluno = Aluno::create($validated);
 
-        (new UserService())->store([
+        (new UserService())->store((object) [
             'nome' => $aluno->nome,
             'email' => $aluno->email,
             'senha' => $aluno->data_de_nascimento,
-            'role' => 'aluno'
+            'role' => 'aluno',
+            'aluno_id' => $aluno->id,
         ]);
 
-        (new UserService())->store([
+        (new UserService())->store((object) [
             'nome' => $aluno->nome_completo_responsavel,
             'email' => $aluno->email_responsavel,
             'senha' => $aluno->cpf_responsavel,
-            'role' => 'responsavel'
+            'role' => 'responsavel',
+            'aluno_id' => $aluno->id,
+
         ]);
         return $aluno;
     }
 
     public function update($request, Aluno $aluno)
     {
+        // dd($request->all());
         // Validação dos dados recebidos
         $validated = $request->validate([
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -106,7 +110,7 @@ class AlunoService
             'email' => 'required|string|max:255',
             'pai' => 'nullable|string|max:255',
             'mae' => 'nullable|string|max:255',
-            'certidao' => 'nullable|string|max:255|unique:alunos,certidao',
+            'certidao' => 'nullable|string|max:255',
             'naturalidade' => 'nullable|string|max:255',
             'nacionalidade' => 'nullable|string|max:255',
             'celular' => 'nullable|string|max:16',
@@ -121,7 +125,7 @@ class AlunoService
             'nome_completo_responsavel' => 'required|string|max:255',
             'data_de_nascimento_responsavel' => 'nullable|date',
             'idade_responsavel' => 'nullable|integer',
-            'sexo' => 'nullable|striner34g',
+            'sexo' => 'nullable|string',
             'cpf_responsavel' => 'required|string|max:14',
             'rg_responsavel' => 'nullable|string|max:20',
             'email_responsavel' => 'required|string|max:255',
@@ -153,7 +157,7 @@ class AlunoService
             }
 
             // Salvar a nova foto (primeira foto ou substituição da anterior)
-            $validated['foto'] = $request->file('foto')->store('foto_aluno', 'public');
+            $validated['foto'] = $request->file('foto')->store('foto_alunos', 'public');
         } elseif (!$request->hasFile('foto') && $aluno->foto) {
             // Caso não tenha enviado uma nova foto, manter a foto existente
             $validated['foto'] = $aluno->foto;

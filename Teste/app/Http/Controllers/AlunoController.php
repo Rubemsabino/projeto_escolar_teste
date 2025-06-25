@@ -16,7 +16,7 @@ class AlunoController extends Controller
      */
     public function index()
     {
-        return (new AlunoService())->getAlunos();
+        return (new AlunoService())->index();
     }
 
     /**

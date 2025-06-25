@@ -100,21 +100,13 @@
                 <tr class="hover:bg-gray-100">
                     <td class="border-b px-4 py-2 text-sm text-gray-700 text-center">{{ $aluno->id }}</td>
                     <td class="border-b px-4 py-2 text-sm text-gray-700 text-center relative">
-                        @if($aluno->status_da_matricula == 'Inativo')
-                        <!-- "X" sobre a foto no centro -->
-                        <div
-                            class="absolute inset-0 flex items-center justify-center bg-red-500 bg-opacity-70 rounded-full z-10">
-                            <span class="text-white text-2xl font-bold">X</span>
-                        </div>
-                        @endif
-
-                        @if($aluno->foto)
-                        <div class="flex justify-center relative">
-                            <img src="{{ asset('storage/' . $aluno->foto) }}" alt="Foto do Aluno: {{ $aluno->nome }}"
-                                class="w-16 h-16 object-cover rounded-full mt-2 z-0">
-                        </div>
-                        @else
+                        @if($aluno->foto == 'sem_foto')
                         <p>SEM FOTO</p>
+                        @else
+                        <div class="flex justify-center">
+                            <img src="{{ asset('storage/' . $aluno->foto) }}" alt="Foto do Aluno: {{ $aluno->nome }}"
+                                class="w-16 h-16 object-cover rounded-full mt-2">
+                        </div>
                         @endif
                     </td>
 
@@ -122,7 +114,7 @@
                     <td class="border-b px-4 py-2 text-sm text-gray-700 text-center">{{ $aluno->status_da_matricula }}
                     </td>
                     <td class="border-b px-4 py-2 text-sm text-gray-700 text-center">
-                        @if($aluno->foto_responsavel)
+                        @if($aluno->foto_responsavel && $aluno->foto_responsavel != 'sem_foto')
                         <div class="flex justify-center">
                             <img src="{{ asset('storage/' . $aluno->foto_responsavel) }}" alt="Foto do Responsável"
                                 class="w-16 h-16 object-cover rounded-full mt-2">

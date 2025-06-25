@@ -19,17 +19,17 @@ class Escola extends Model
         'nome_fantasia',
         'codigo_inep',
         'tipo_escola',
-        
+
         'cnpj',
         'ato_criacao',
         'inscricao_estadual',
         'inscricao_municipal',
-        
+
         'telefone',
         'email',
         'site',
         'whatsapp',
-        
+
         'cep',
         'logradouro',
         'numero',
@@ -38,16 +38,17 @@ class Escola extends Model
         'cidade',
         'estado',
         'pais',
-        
-        'diretor_id',
+
+        'diretora',
         'data_fundacao',
-        
-        'ano_letivo_id',
-        'logo_path',
-        'timezone',
-        'configuracao_geral', // Corrigido de 'confiracao_geral'
-        'ativo',
-        'suspensa'
+
+        // 'ano_letivo_id',
+        // 'logo_path',
+
+        // 'timezone',
+        // 'configuracao_geral', // Corrigido de 'confiracao_geral'
+        // 'ativo',
+        // 'suspensa'
     ];
 
     /**
@@ -79,19 +80,19 @@ class Escola extends Model
         'Privada'
     ];
 
-    /**
-     * Relacionamento com o diretor
-     */
-    public function diretor()
-    {
-        return $this->belongsTo(User::class, 'diretor_id');
-    }
+    // /**
+    //  * Relacionamento com o diretor
+    //  */
+    // public function diretor()
+    // {
+    //     return $this->belongsTo(User::class, 'diretor_id');
+    // }
 
-    /**
-     * Relacionamento com o responsável
-     */
-    public function responsavel()
-    {
-        return $this->belongsTo(User::class, 'responsavel_id');
-    }
+    // /**
+    //  * Relacionamento com o responsável
+    //  */
+    // public function responsavel()
+    // {
+    //     return $this->belongsTo(User::class, 'responsavel_id');
+    // }
 }

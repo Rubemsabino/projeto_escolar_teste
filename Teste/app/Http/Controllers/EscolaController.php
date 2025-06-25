@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Escola;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Escola;
+use App\Service\EscolaService;
 
 class EscolaController extends Controller
 {
@@ -13,8 +13,7 @@ class EscolaController extends Controller
      */
     public function index()
     {
-        $escolas = Escola::all();
-        return view('escolas.listar', compact('escolas'));
+        return (new EscolaService())->index();
     }
 
     /**
@@ -30,31 +29,37 @@ class EscolaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $escola = (new EscolaService())->store($request);
+        // Retornar uma mensagem de sucesso com o nome do escola
+        return redirect()->route('escolas.listar')->with('success', 'Escola: <strong>' . $escola->nome . '</strong><br> Criado(a) com sucesso!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Escola $escola)
+    public function show($id)
     {
-        //
+        $escola = Escola::findOrFail($id);
+        return view('escolas.ver', compact('escola'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Mostrar o formulário de edição de um aluno.
      */
-    public function edit(Escola $escola)
+    public function edit($id)
     {
-        //
+        $escola = Escola::findOrFail($id);
+        return view('Escolas.editar', compact('escola'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Atualizar os dados de um aluno específico.
      */
     public function update(Request $request, Escola $escola)
     {
-        //
+        $escola  = (new EscolaService())->update($request, $escola);
+        // Redirecionar após atualização
+        return redirect()->route('escolas.listar')->with('success', 'Escola: <strong>' . $escola->nome . '!</strong><br> Atualizado(a) com sucesso!');
     }
 
     /**
@@ -63,5 +68,14 @@ class EscolaController extends Controller
     public function destroy(Escola $escola)
     {
         //
+    }
+
+    /**
+     * Buscar escolas com base em critérios fornecidos pelo usuário.
+     */
+    public function busca(Request $request)
+    {
+        $escolas = (new EscolaService())->busca($request);
+        return view('escolas.listar', compact('escolas'));
     }
 }

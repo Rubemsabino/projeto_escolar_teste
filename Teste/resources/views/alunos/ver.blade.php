@@ -74,13 +74,21 @@
                 </div>
             </div>
 
-            <div class="mb-4 grid grid-cols-1 md:grid-cols-7 gap-4">
+            <div class="mb-4 grid grid-cols-1 md:grid-cols-9 gap-4">
 
                 <div>
                     <label for="rg" class="block text-gray-500">RG</label>
                     <input type="text" id="rg" name="rg"
                         class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-yellow-100"
                         value="{{($aluno->rg)}}" readonly>
+                </div>
+
+                <!-- Email (ocupa 2 colunas) -->
+                <div class="md:col-span-2">
+                    <label for="email" class="block text-gray-500">Email</label>
+                    <input type="email" id="email" name="email"
+                        class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-green-100"
+                        placeholder="Só números" value="{{($aluno->email)}}">
                 </div>
 
                 <div class="md:col-span-2">
@@ -234,7 +242,7 @@
                 </div>
             </div>
 
-            <div class="mb-4 grid grid-cols-1 md:grid-cols-5 gap-4">
+            <div class="mb-4 grid grid-cols-1 md:grid-cols-7 gap-4">
 
                 <div>
                     <label for="cpf_responsavel" class="block text-gray-500">CPF</label>
@@ -248,6 +256,14 @@
                     <input type="text" id="rg_responsavel" name="rg_responsavel"
                         class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-yellow-100"
                         value="{{($aluno->rg_responsavel)}}" readonly>
+                </div>
+
+                <!-- Email (ocupa 2 colunas) -->
+                <div class="md:col-span-2">
+                    <label for="email" class="block text-gray-500">Email</label>
+                    <input type="email" id="email" name="email"
+                        class="w-full p-2 mt-2 border border-gray-400 rounded-lg bg-white focus:bg-green-100"
+                        placeholder="Só números" value="{{($aluno->email)}}">
                 </div>
 
                 <div>
@@ -363,18 +379,18 @@
 
 
         <div class="flex flex-col sm:flex-row justify-center gap-2 mt-4">
-    <a href="{{ route('alunos.editar', $aluno->id) }}"
-        class="inline-flex justify-center items-center bg-transparent text-yellow-500 border border-yellow-500 px-6 py-3 rounded-lg hover:bg-yellow-500 hover:text-white hover:font-bold transition"
-        title="Adicionar Novo Aluno">
-        Editar Campos
-    </a>
+            <a href="{{ route('alunos.editar', $aluno->id) }}"
+                class="inline-flex justify-center items-center bg-transparent text-yellow-500 border border-yellow-500 px-6 py-3 rounded-lg hover:bg-yellow-500 hover:text-white hover:font-bold transition"
+                title="Adicionar Novo Aluno">
+                Editar Campos
+            </a>
 
-    <a href="{{ route('alunos.listar', $aluno->id) }}"
-        class="inline-flex justify-center items-center bg-transparent text-purple-500 border border-purple-500 px-6 py-3 rounded-lg hover:bg-purple-500 hover:text-white hover:font-bold transition"
-        title="Adicionar Novo Aluno">
-        Voltar
-    </a>
-</div>
+            <a href="{{ route('alunos.listar', $aluno->id) }}"
+                class="inline-flex justify-center items-center bg-transparent text-purple-500 border border-purple-500 px-6 py-3 rounded-lg hover:bg-purple-500 hover:text-white hover:font-bold transition"
+                title="Adicionar Novo Aluno">
+                Voltar
+            </a>
+        </div>
 
 
     </form>
